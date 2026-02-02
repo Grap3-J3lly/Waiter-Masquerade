@@ -1,7 +1,5 @@
 [gd_scene format=3 uid="uid://dr2u8j37486mx"]
 
-[ext_resource type="PackedScene" uid="uid://bmixgc541np5r" path="res://Entities/Characters/Player/Player.tscn" id="1_jiq2r"]
-
 [sub_resource type="PlaneMesh" id="PlaneMesh_fcrp2"]
 size = Vector2(15, 30)
 
@@ -295,9 +293,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0, 0)
 light_color = Color(1, 1, 0.81960785, 1)
 shadow_enabled = true
 omni_range = 3.0
-
-[node name="Player" parent="." unique_id=1471031441 instance=ExtResource("1_jiq2r")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.5337563, 1, 13.011701)
 
 [node name="Wall-Extras" type="Node3D" parent="." unique_id=613680032]
 

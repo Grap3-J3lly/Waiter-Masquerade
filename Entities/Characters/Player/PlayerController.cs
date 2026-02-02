@@ -13,6 +13,10 @@ public partial class PlayerController : CharacterBody3D
 	private Camera3D mainCam;
 	[Export]
 	public float MouseSensitivity = .002f;
+	[Export]
+	private RayCast3D raycast;
+	[Export]
+	private Node3D theHand;
 	
 	// --------------------------------
    	//		STANDARD LOGIC	
@@ -25,11 +29,13 @@ public partial class PlayerController : CharacterBody3D
 	public override void _PhysicsProcess(double delta)
 	{
 		HandleCharacterMovement(delta);
+		HandleInteractions();
 
 		if(Input.IsActionJustPressed("ui_cancel"))
 		{
 			Input.MouseMode = Input.MouseMode == Input.MouseModeEnum.Captured ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
 		}
+
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -41,6 +47,26 @@ public partial class PlayerController : CharacterBody3D
 			RotateY(-mouseMotion.Relative.X * MouseSensitivity);
 			mainCam.RotateX(-mouseMotion.Relative.Y * MouseSensitivity);
 		}
+	}
+
+	// --------------------------------
+	//		INPUT LOGIC	
+	// --------------------------------
+
+	private void HandleInteractions()
+	{
+		if(Input.IsActionJustPressed("primary") && raycast.IsColliding())
+		{
+			GD.Print("Grabbed Drink");
+			Area3D drink = (Area3D)raycast.GetCollider();
+
+			if(drink != null)
+			{
+				drink.Reparent(theHand, keepGlobalTransform:false);
+				drink.Position = new Vector3(0,0,0);
+			}
+		}
+
 	}
 
 	// --------------------------------

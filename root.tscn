@@ -2,6 +2,17 @@
 
 [ext_resource type="PackedScene" uid="uid://bmixgc541np5r" path="res://Entities/Characters/Player/Player.tscn" id="2_pyidc"]
 [ext_resource type="PackedScene" uid="uid://dr2u8j37486mx" path="res://Entities/Levels/room-func-blockout.tscn" id="2_vvh5c"]
+[ext_resource type="Texture2D" uid="uid://bf5k6mlq2beji" path="res://Assets/Temp/cjHello.png" id="3_vvh5c"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28aoi"]
+albedo_texture = ExtResource("3_vvh5c")
+billboard_mode = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_jnlp7"]
+material = SubResource("StandardMaterial3D_28aoi")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vvh5c"]
+size = Vector3(1, 1, 0.3)
 
 [node name="root" type="Node3D" unique_id=270941695]
 
@@ -9,3 +20,12 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="RoomFuncBlockout" parent="." unique_id=593545700 instance=ExtResource("2_vvh5c")]
+
+[node name="TempDrink" type="Area3D" parent="." unique_id=532268999]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8118153, 1.8590753, 7.2102184)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TempDrink" unique_id=298206647]
+mesh = SubResource("QuadMesh_jnlp7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TempDrink" unique_id=1600690008]
+shape = SubResource("BoxShape3D_vvh5c")
