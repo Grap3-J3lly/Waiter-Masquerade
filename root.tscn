@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://iaht2mlnxlwc"]
 
-[ext_resource type="PackedScene" uid="uid://c2ypxadeq8i2i" path="res://Entities/environment.tscn" id="1_pq8q7"]
 [ext_resource type="PackedScene" uid="uid://bmixgc541np5r" path="res://Entities/Characters/Player/Player.tscn" id="2_pyidc"]
+[ext_resource type="PackedScene" uid="uid://dr2u8j37486mx" path="res://Entities/Levels/room-func-blockout.tscn" id="2_vvh5c"]
 
 [node name="root" type="Node3D" unique_id=270941695]
 
-[node name="Environment" parent="." unique_id=426817969 instance=ExtResource("1_pq8q7")]
-
 [node name="Player" parent="." unique_id=1471031441 instance=ExtResource("2_pyidc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="RoomFuncBlockout" parent="." unique_id=593545700 instance=ExtResource("2_vvh5c")]
