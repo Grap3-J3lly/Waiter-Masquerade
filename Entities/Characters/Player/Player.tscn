@@ -21,8 +21,8 @@ current = true
 
 [node name="RayCast3D" type="RayCast3D" parent="HeadPivot/Camera3D" unique_id=1863945198]
 target_position = Vector3(0, 0, -5)
+collision_mask = 2
 collide_with_areas = true
-collide_with_bodies = false
 
 [node name="TheHand" type="Node3D" parent="." unique_id=253058705]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6608798, 0, -0.81972826)

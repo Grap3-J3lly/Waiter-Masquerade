@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using System.Runtime.Serialization.Formatters;
 
 public partial class PlayerController : CharacterBody3D
 {
@@ -17,6 +15,7 @@ public partial class PlayerController : CharacterBody3D
 	private RayCast3D raycast;
 	[Export]
 	private Node3D theHand;
+	private Drink heldDrink;
 	
 	// --------------------------------
    	//		STANDARD LOGIC	
@@ -57,21 +56,22 @@ public partial class PlayerController : CharacterBody3D
 	{
 		if(Input.IsActionJustPressed("primary") && raycast.IsColliding())
 		{
-			GD.Print("Grabbed Drink");
-			Area3D drink = (Area3D)raycast.GetCollider();
+			GodotObject raycastObject = raycast.GetCollider();
 
-			if(drink != null)
+			Drink potentialDrink = raycastObject as Drink;
+			Guest potentialGuest = raycastObject as Guest;
+
+			if(potentialDrink != null)
 			{
-				drink.Reparent(theHand, keepGlobalTransform:false);
-				drink.Position = new Vector3(0,0,0);
+				HandleDrinkInteraction(potentialDrink);
+			}
+			if(potentialGuest != null && heldDrink != null)
+			{
+				HandleGuestInteraction(potentialGuest);
 			}
 		}
 
 	}
-
-	// --------------------------------
-	//		MOVEMENT LOGIC	
-	// --------------------------------
 	
 	private void HandleCharacterMovement(double delta)
 	{
@@ -100,5 +100,27 @@ public partial class PlayerController : CharacterBody3D
 
 		Velocity = velocity;
 		MoveAndSlide();
+	}
+
+	// --------------------------------
+	//			INTERACTIONS	
+	// --------------------------------
+
+	private void HandleDrinkInteraction(Drink drink)
+	{
+		drink.Reparent(theHand, keepGlobalTransform:false);
+		drink.Position = Vector3.Zero;
+		heldDrink = drink;
+	}
+
+	private void HandleGuestInteraction(Guest guest)
+	{
+		bool correctGuest = heldDrink.IsAssignedGuest(guest);
+		GD.Print($"Does Drink Belong to this Guest? {correctGuest}");
+
+		if(correctGuest)
+		{
+			guest.TakeDrink(heldDrink);
+		}
 	}
 }
