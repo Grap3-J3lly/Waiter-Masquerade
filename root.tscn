@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://dr2u8j37486mx" path="res://Entities/Levels/room-func-blockout.tscn" id="2_vvh5c"]
 [ext_resource type="PackedScene" uid="uid://mwbm6usjuxel" path="res://Entities/Objects/Drinks/default_drink.tscn" id="3_vvh5c"]
 [ext_resource type="PackedScene" uid="uid://drvfaj1500oxc" path="res://Entities/Characters/Guests/guestTemplate.tscn" id="4_28aoi"]
+[ext_resource type="Script" uid="uid://bahf62o2x82d5" path="res://Entities/Managers/GameManager.cs" id="5_jnlp7"]
+[ext_resource type="PackedScene" uid="uid://c4ueua7jfdfco" path="res://UI/menu_system.tscn" id="6_l8v81"]
 
 [node name="root" type="Node3D" unique_id=270941695]
 
@@ -26,5 +28,21 @@ transform = Transform3D(0.1925734, 0, 0.9812826, 0, 1, 0, -0.9812826, 0, 0.19257
 
 [node name="Label3D" parent="GuestTemplate2" index="2" unique_id=1965826131]
 text = ""
+
+[node name="Managers" type="Node" parent="." unique_id=1275277068]
+
+[node name="GameManager" type="Node" parent="Managers" unique_id=265599984 node_paths=PackedStringArray("player")]
+script = ExtResource("5_jnlp7")
+player = NodePath("../../Player")
+
+[node name="SceneManager" type="Node" parent="Managers" unique_id=998506251]
+
+[node name="AudioManager" type="Node" parent="Managers" unique_id=1733043270]
+
+[node name="StreamPlayer-SFX" type="AudioStreamPlayer" parent="Managers/AudioManager" unique_id=1146762024]
+
+[node name="StreamPlayer-Music" type="AudioStreamPlayer" parent="Managers/AudioManager" unique_id=1410160722]
+
+[node name="MenuSystem" parent="." unique_id=1331275857 instance=ExtResource("6_l8v81")]
 
 [editable path="GuestTemplate2"]

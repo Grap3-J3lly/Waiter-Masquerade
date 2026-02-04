@@ -5,6 +5,8 @@ public partial class PlayerController : CharacterBody3D
 	// --------------------------------
 	//		    VARIABLES	
 	// --------------------------------
+	private GameManager gameManager;
+
 	[Export]
 	public float speed = 5.0f;
 	[Export]
@@ -16,12 +18,20 @@ public partial class PlayerController : CharacterBody3D
 	[Export]
 	private Node3D theHand;
 	private Drink heldDrink;
+	private int guesses = 0;
+
+	// --------------------------------
+	//		    PROPERTIES	
+	// --------------------------------
 	
+	public int Guesses { get => guesses; }
+
 	// --------------------------------
    	//		STANDARD LOGIC	
    	// --------------------------------
 	public override void _Ready()
 	{
+		gameManager = GameManager.Instance;
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
 
@@ -121,6 +131,11 @@ public partial class PlayerController : CharacterBody3D
 		if(correctGuest)
 		{
 			guest.TakeDrink(heldDrink);
+			guesses = 0;
+		}
+		else
+		{
+			++guesses;
 		}
 	}
 }
