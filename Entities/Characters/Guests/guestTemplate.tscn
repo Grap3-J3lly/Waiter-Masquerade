@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://drvfaj1500oxc"]
 
-[ext_resource type="Texture2D" uid="uid://bwhi1fp2ds46t" path="res://Assets/Art/Masks/Mask-C-Out.png" id="1_fpi1i"]
-[ext_resource type="Texture2D" uid="uid://di8we2o3ibdtb" path="res://Assets/Art/Masks/Emb-Mask-Dots.png" id="2_oix4q"]
-[ext_resource type="Texture2D" uid="uid://bvkcxbyryy56d" path="res://Assets/Art/Masks/Mask-C-Inner.png" id="3_3l545"]
-[ext_resource type="Texture2D" uid="uid://c84guao20xdrd" path="res://Assets/Art/Masks/Acess-Mask-Jewel.png" id="4_pk48d"]
+[ext_resource type="Script" uid="uid://hugld3vxb8ru" path="res://Entities/Characters/Guests/Guest.cs" id="1_d8eer"]
+[ext_resource type="Texture2D" uid="uid://bwhi1fp2ds46t" path="res://Assets/Art/Masks/Mask-C-Out.png" id="1_se74e"]
+[ext_resource type="Texture2D" uid="uid://di8we2o3ibdtb" path="res://Assets/Art/Masks/Emb-Mask-Dots.png" id="2_d8eer"]
+[ext_resource type="Texture2D" uid="uid://bvkcxbyryy56d" path="res://Assets/Art/Masks/Mask-C-Inner.png" id="3_qdj1b"]
+[ext_resource type="Texture2D" uid="uid://c84guao20xdrd" path="res://Assets/Art/Masks/Acess-Mask-Jewel.png" id="4_n2vp4"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_msh3w"]
 size = Vector2(1, 2)
@@ -13,22 +14,29 @@ size = Vector2(0.75, 0.75)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2jje0"]
 transparency = 1
-albedo_texture = ExtResource("1_fpi1i")
+albedo_texture = ExtResource("1_se74e")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_taumd"]
 transparency = 1
-albedo_texture = ExtResource("2_oix4q")
+albedo_texture = ExtResource("2_d8eer")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o3kkj"]
 transparency = 1
 albedo_color = Color(0.8156863, 0.2, 0.20392157, 1)
-albedo_texture = ExtResource("3_3l545")
+albedo_texture = ExtResource("3_qdj1b")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jhx5a"]
 transparency = 1
-albedo_texture = ExtResource("4_pk48d")
+albedo_texture = ExtResource("4_n2vp4")
 
-[node name="Test-Mask-Setup" type="Node3D" unique_id=324024959]
+[sub_resource type="BoxShape3D" id="BoxShape3D_d8eer"]
+size = Vector3(1, 2, 0.235)
+
+[node name="GuestTemplate" type="CharacterBody3D" unique_id=609082474 node_paths=PackedStringArray("hand")]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_d8eer")
+hand = NodePath("Body/Hand")
 
 [node name="Body" type="MeshInstance3D" parent="." unique_id=1461473031]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -59,3 +67,15 @@ surface_material_override/0 = SubResource("StandardMaterial3D_o3kkj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01)
 mesh = SubResource("QuadMesh_kknrs")
 surface_material_override/0 = SubResource("StandardMaterial3D_jhx5a")
+
+[node name="Hand" type="Node3D" parent="Body" unique_id=1793626663]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2851732, 0, 0.3802661)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2121068206]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_d8eer")
+
+[node name="Label3D" type="Label3D" parent="." unique_id=1965826131]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.323554, 0)
+billboard = 2
+text = "I AM THE GUEST WITH A DRINK"

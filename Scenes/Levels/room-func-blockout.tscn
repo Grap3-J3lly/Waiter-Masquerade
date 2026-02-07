@@ -1,7 +1,5 @@
 [gd_scene format=3 uid="uid://dr2u8j37486mx"]
 
-[ext_resource type="PackedScene" uid="uid://bmixgc541np5r" path="res://Entities/Characters/Player/Player.tscn" id="1_jiq2r"]
-
 [sub_resource type="PlaneMesh" id="PlaneMesh_fcrp2"]
 size = Vector2(15, 30)
 
@@ -168,13 +166,13 @@ outer_radius = 1.75
 rings = 4
 ring_segments = 12
 
-[node name="RoomFuncBlockout" type="Node" unique_id=1235997772]
+[node name="RoomFuncBlockout" type="Node3D" unique_id=593545700]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1746479709]
 transform = Transform3D(-0.25000006, 0.9659258, -0.06698731, -0.2588191, -1.9026752e-08, 0.9659258, 0.9330127, 0.2588191, 0.25000003, 0, 8.956795, 0)
 visible = false
 
-[node name="Walls" type="Node" parent="." unique_id=796726828]
+[node name="Walls" type="Node3D" parent="." unique_id=1222166109]
 
 [node name="Floor" type="StaticBody3D" parent="Walls" unique_id=1399443910]
 
@@ -241,7 +239,7 @@ shape = SubResource("BoxShape3D_4ji60")
 mesh = SubResource("PlaneMesh_uersp")
 surface_material_override/0 = SubResource("StandardMaterial3D_0xt7u")
 
-[node name="Bar-Blockout" type="Node" parent="." unique_id=1968064013]
+[node name="Bar-Blockout" type="Node3D" parent="." unique_id=1875585990]
 
 [node name="Bar" type="StaticBody3D" parent="Bar-Blockout" unique_id=805314160]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.5, 9)
@@ -296,10 +294,7 @@ light_color = Color(1, 1, 0.81960785, 1)
 shadow_enabled = true
 omni_range = 3.0
 
-[node name="Player" parent="." unique_id=1471031441 instance=ExtResource("1_jiq2r")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.5337563, 1, 13.011701)
-
-[node name="Wall-Extras" type="Node" parent="." unique_id=949353135]
+[node name="Wall-Extras" type="Node3D" parent="." unique_id=613680032]
 
 [node name="WallDoor" type="MeshInstance3D" parent="Wall-Extras" unique_id=371707986]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1.5, 12.75)
@@ -317,7 +312,7 @@ mesh = SubResource("BoxMesh_0xt7u")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12, 1.63, 0)
 mesh = SubResource("BoxMesh_lk50m")
 
-[node name="Windows" type="Node" parent="Wall-Extras" unique_id=1391685316]
+[node name="Windows" type="Node3D" parent="Wall-Extras" unique_id=63543963]
 
 [node name="Window" type="MeshInstance3D" parent="Wall-Extras/Windows" unique_id=1751332375]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 2.5, 15)
@@ -849,7 +844,7 @@ transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 2
 mesh = SubResource("CylinderMesh_87lbn")
 surface_material_override/0 = SubResource("StandardMaterial3D_82x1x")
 
-[node name="Columns" type="Node" parent="Wall-Extras" unique_id=1069387843]
+[node name="Columns" type="Node3D" parent="Wall-Extras" unique_id=498967844]
 
 [node name="Column1" type="MeshInstance3D" parent="Wall-Extras/Columns" unique_id=1688574691]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 15)
@@ -1318,7 +1313,7 @@ mesh = SubResource("BoxMesh_a76b1")
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.12, 4, 0.25)
 mesh = SubResource("PrismMesh_jiq2r")
 
-[node name="Tables" type="Node" parent="." unique_id=1191937113]
+[node name="Tables" type="Node3D" parent="." unique_id=949123158]
 
 [node name="Table-1" type="StaticBody3D" parent="Tables" unique_id=1946704722]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1002977, 0, -8.505786)
@@ -1473,7 +1468,7 @@ light_color = Color(1, 1, 0.5529412, 1)
 shadow_enabled = true
 omni_range = 3.0
 
-[node name="Chandeluers" type="Node" parent="." unique_id=1990998628]
+[node name="Chandeluers" type="Node3D" parent="." unique_id=962581974]
 
 [node name="Chandeluer" type="Node3D" parent="Chandeluers" unique_id=955149066]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -4.5)

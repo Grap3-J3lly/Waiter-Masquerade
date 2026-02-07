@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://iaht2mlnxlwc"]
 
-[ext_resource type="PackedScene" uid="uid://c2ypxadeq8i2i" path="res://Entities/environment.tscn" id="1_pq8q7"]
-[ext_resource type="PackedScene" uid="uid://bmixgc541np5r" path="res://Entities/Characters/Player/Player.tscn" id="2_pyidc"]
+[ext_resource type="PackedScene" uid="uid://btxxno3jwnefd" path="res://Tools/SceneManagement/scene_manager.tscn" id="1_vvh5c"]
+[ext_resource type="PackedScene" uid="uid://cq0j7o4i3mdph" path="res://Tools/AudioManagement/audio_manager.tscn" id="2_pyidc"]
 
-[node name="root" type="Node3D" unique_id=270941695]
+[node name="root" type="Node" unique_id=2131581832]
 
-[node name="Environment" parent="." unique_id=426817969 instance=ExtResource("1_pq8q7")]
+[node name="Managers" type="Node" parent="." unique_id=1275277068]
 
-[node name="Player" parent="." unique_id=1471031441 instance=ExtResource("2_pyidc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="SceneManager" parent="Managers" unique_id=1617894014 instance=ExtResource("1_vvh5c")]
+scenePaths = Array[String](["res://Tools/MenuManagement/menu_system.tscn", "res://Scenes/masquerade.tscn"])
+
+[node name="AudioManager" parent="Managers" unique_id=749267359 instance=ExtResource("2_pyidc")]

@@ -1,35 +1,50 @@
 using Godot;
-using System;
-using System.Runtime.Serialization.Formatters;
 
 public partial class PlayerController : CharacterBody3D
 {
 	// --------------------------------
 	//		    VARIABLES	
 	// --------------------------------
+	private GameManager gameManager;
+
 	[Export]
 	public float speed = 5.0f;
 	[Export]
 	private Camera3D mainCam;
 	[Export]
 	public float MouseSensitivity = .002f;
+	[Export]
+	private RayCast3D raycast;
+	[Export]
+	private Node3D theHand;
+	private Drink heldDrink;
+	private int guesses = 0;
+
+	// --------------------------------
+	//		    PROPERTIES	
+	// --------------------------------
 	
+	public int Guesses { get => guesses; }
+
 	// --------------------------------
    	//		STANDARD LOGIC	
    	// --------------------------------
 	public override void _Ready()
 	{
+		gameManager = GameManager.Instance;
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		HandleCharacterMovement(delta);
+		HandleInteractions();
 
 		if(Input.IsActionJustPressed("ui_cancel"))
 		{
 			Input.MouseMode = Input.MouseMode == Input.MouseModeEnum.Captured ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
 		}
+
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -44,8 +59,29 @@ public partial class PlayerController : CharacterBody3D
 	}
 
 	// --------------------------------
-	//		MOVEMENT LOGIC	
+	//		INPUT LOGIC	
 	// --------------------------------
+
+	private void HandleInteractions()
+	{
+		if(Input.IsActionJustPressed("primary") && raycast.IsColliding())
+		{
+			GodotObject raycastObject = raycast.GetCollider();
+
+			Drink potentialDrink = raycastObject as Drink;
+			Guest potentialGuest = raycastObject as Guest;
+
+			if(potentialDrink != null)
+			{
+				HandleDrinkInteraction(potentialDrink);
+			}
+			if(potentialGuest != null && heldDrink != null)
+			{
+				HandleGuestInteraction(potentialGuest);
+			}
+		}
+
+	}
 	
 	private void HandleCharacterMovement(double delta)
 	{
@@ -74,5 +110,32 @@ public partial class PlayerController : CharacterBody3D
 
 		Velocity = velocity;
 		MoveAndSlide();
+	}
+
+	// --------------------------------
+	//			INTERACTIONS	
+	// --------------------------------
+
+	private void HandleDrinkInteraction(Drink drink)
+	{
+		drink.Reparent(theHand, keepGlobalTransform:false);
+		drink.Position = Vector3.Zero;
+		heldDrink = drink;
+	}
+
+	private void HandleGuestInteraction(Guest guest)
+	{
+		bool correctGuest = heldDrink.IsAssignedGuest(guest);
+		GD.Print($"Does Drink Belong to this Guest? {correctGuest}");
+
+		if(correctGuest)
+		{
+			guest.TakeDrink(heldDrink);
+			guesses = 0;
+		}
+		else
+		{
+			++guesses;
+		}
 	}
 }

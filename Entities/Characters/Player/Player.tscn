@@ -4,9 +4,11 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pq8q7"]
 
-[node name="Player" type="CharacterBody3D" unique_id=1471031441 node_paths=PackedStringArray("mainCam")]
+[node name="Player" type="CharacterBody3D" unique_id=1471031441 node_paths=PackedStringArray("mainCam", "raycast", "theHand")]
 script = ExtResource("1_m5olb")
 mainCam = NodePath("HeadPivot/Camera3D")
+raycast = NodePath("HeadPivot/Camera3D/RayCast3D")
+theHand = NodePath("TheHand")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1816844345]
 shape = SubResource("CapsuleShape3D_pq8q7")
@@ -16,3 +18,11 @@ shape = SubResource("CapsuleShape3D_pq8q7")
 [node name="Camera3D" type="Camera3D" parent="HeadPivot" unique_id=387788455]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 current = true
+
+[node name="RayCast3D" type="RayCast3D" parent="HeadPivot/Camera3D" unique_id=1863945198]
+target_position = Vector3(0, 0, -5)
+collision_mask = 2
+collide_with_areas = true
+
+[node name="TheHand" type="Node3D" parent="." unique_id=253058705]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6608798, 0, -0.81972826)
