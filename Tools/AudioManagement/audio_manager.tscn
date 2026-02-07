@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cq0j7o4i3mdph"]
+
+[ext_resource type="Script" uid="uid://bcjlrdvkhu07" path="res://Tools/AudioManagement/AudioManager.cs" id="1_niwv0"]
+[ext_resource type="AudioStream" uid="uid://dpko7pb438qjk" path="res://Assets/Audio/SFX/UIInteractSound.ogg" id="2_eu42g"]
+
+[node name="AudioManager" type="Node" unique_id=749267359 node_paths=PackedStringArray("sfxAudioPlayer")]
+script = ExtResource("1_niwv0")
+sfxAudioPlayer = NodePath("StreamPlayer-SFX")
+sfxLibrary = Dictionary[int, AudioStreamOggVorbis]({
+3: ExtResource("2_eu42g")
+})
+
+[node name="StreamPlayer-SFX" type="AudioStreamPlayer" parent="." unique_id=1162855157]
+bus = &"SFXBus"

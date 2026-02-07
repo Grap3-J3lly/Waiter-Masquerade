@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://btxxno3jwnefd"]
+
+[ext_resource type="Script" uid="uid://b557hnulbsi83" path="res://Tools/SceneManagement/SceneManager.cs" id="1_6i8fc"]
+
+[node name="SceneManager" type="Node" unique_id=1617894014]
+script = ExtResource("1_6i8fc")
+scenePaths = Array[String](["res://UI/menu_system.tscn", "res://Scenes/masquerade.tscn"])

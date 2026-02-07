@@ -65,6 +65,8 @@ public partial class SceneManager : Node
 
     [Export]
     private Array<string> scenePaths;
+    [Export]
+    private int homeSceneIndex = 0;
     private Array<Node> openScenes = new Array<Node>();
     private Node currentScene;
 
@@ -73,6 +75,7 @@ public partial class SceneManager : Node
     // --------------------------------
 
     public static SceneManager Instance { get; private set; }
+    public int HomeSceneIndex { get => homeSceneIndex; }
 
     // --------------------------------
     //		STANDARD FUNCTIONS	
