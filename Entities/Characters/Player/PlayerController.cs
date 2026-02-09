@@ -37,21 +37,34 @@ public partial class PlayerController : CharacterBody3D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		HandleCharacterMovement(delta);
-		HandleInteractions();
-
-		if(Input.IsActionJustPressed("ui_cancel"))
+		if(!gameManager.GameStopped && !gameManager.GamePaused)
 		{
-			Input.MouseMode = Input.MouseMode == Input.MouseModeEnum.Captured ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
+			HandleCharacterMovement(delta);
+			HandleInteractions();
 		}
 
+		
 	}
+
+    public override void _Input(InputEvent @event)
+    {
+        base._Input(@event);
+		if(@event.IsActionPressed("ui_cancel"))
+		{
+			// Input.MouseMode = Input.MouseMode == Input.MouseModeEnum.Captured ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
+			
+			if(!gameManager.GameStopped)
+			{
+				gameManager.Pause(!gameManager.GamePaused);
+			}
+		}
+    }
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
 		base._UnhandledInput(@event);
 
-		if(@event is InputEventMouseMotion mouseMotion)
+		if(@event is InputEventMouseMotion mouseMotion && !gameManager.GameStopped && !gameManager.GamePaused)
 		{
 			RotateY(-mouseMotion.Relative.X * MouseSensitivity);
 			mainCam.RotateX(-mouseMotion.Relative.Y * MouseSensitivity);
@@ -136,6 +149,7 @@ public partial class PlayerController : CharacterBody3D
 		else
 		{
 			++guesses;
+			gameManager.HandleGameOver();
 		}
 	}
 }

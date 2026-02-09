@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bxcy6bjnl7by5" path="res://Tools/MenuManagement/MenuManager.cs" id="1_4libj"]
 [ext_resource type="Script" uid="uid://bcwfj12qcdjjk" path="res://UI/UI Buttons/GeneralButton.cs" id="2_4beqq"]
 [ext_resource type="Script" uid="uid://bqwgq0t3vphx1" path="res://Tools/SettingsManager.cs" id="3_staha"]
+[ext_resource type="Script" uid="uid://boe6ecq1djwb1" path="res://Tools/MenuManagement/WinLosePauseScreen.cs" id="4_4beqq"]
 
 [sub_resource type="Gradient" id="Gradient_c83w7"]
 colors = PackedColorArray(0.441424, 0.244165, 0.599882, 1, 0.247238, 0.181304, 0.279686, 1)
@@ -16,16 +17,24 @@ colors = PackedColorArray(0.441424, 0.244165, 0.599882, 1, 0.247238, 0.181304, 0
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_0g2ml"]
 gradient = SubResource("Gradient_0g2ml")
 
+[sub_resource type="Gradient" id="Gradient_4libj"]
+colors = PackedColorArray(0.34370446, 0.25748816, 0.38434684, 1, 0.34509805, 0.25882354, 0.38431373, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4beqq"]
+gradient = SubResource("Gradient_4libj")
+
 [node name="MenuSystem" type="CanvasLayer" unique_id=1331275857 node_paths=PackedStringArray("menus", "menuButtons", "levelButtons")]
 layer = 10
 script = ExtResource("1_4libj")
-menus = [NodePath("MainMenu"), NodePath("Settings")]
+menus = [NodePath("MainMenu"), NodePath("LevelSelect"), NodePath("Settings"), NodePath("Win_Lose_Pause")]
 menuButtons = {
-NodePath("MainMenu/Background/TitleArea/SettingsButton"): [1, false]
+NodePath("MainMenu/Background/TitleArea/SettingsButton"): [2, false],
+NodePath("Win_Lose_Pause/WLP_SettingsButton"): [2, false]
 }
 levelButtons = [NodePath("MainMenu/Background/TitleArea/PlayButton")]
 
 [node name="MainMenu" type="Control" parent="." unique_id=119890999]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -264,6 +273,174 @@ text = "Back"
 icon_alignment = 1
 script = ExtResource("2_4beqq")
 
+[node name="Win_Lose_Pause" type="Control" parent="." unique_id=1759944445 node_paths=PackedStringArray("resumeButton", "retryButton", "titleDataLabel", "scoreDataLabel", "moodDataLabel")]
+z_index = 10
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 3
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_4beqq")
+resumeButton = NodePath("ButtonContainer/ResumeButton")
+retryButton = NodePath("ButtonContainer/RetryButton")
+titleDataLabel = NodePath("TitleText")
+scoreDataLabel = NodePath("Data Container/ValueContainer/ScoreData")
+moodDataLabel = NodePath("Data Container/ValueContainer/FinalMoodData")
+
+[node name="Background" type="TextureRect" parent="Win_Lose_Pause" unique_id=1780675614]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_4beqq")
+
+[node name="WLP_SettingsButton" type="Button" parent="Win_Lose_Pause" unique_id=137926274]
+custom_minimum_size = Vector2(125, 42)
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 135.0
+offset_bottom = 52.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 24
+action_mode = 0
+text = "Settings"
+icon_alignment = 1
+script = ExtResource("2_4beqq")
+
+[node name="WLP_SettingsButton2" type="Button" parent="Win_Lose_Pause" unique_id=723370705]
+visible = false
+z_index = 10
+custom_minimum_size = Vector2(125, 42)
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 110.0
+offset_bottom = 41.0
+theme_override_font_sizes/font_size = 24
+action_mode = 0
+text = "Settings"
+icon_alignment = 1
+script = ExtResource("2_4beqq")
+metadata/_custom_type_script = "uid://bcwfj12qcdjjk"
+
+[node name="TitleText" type="RichTextLabel" parent="Win_Lose_Pause" unique_id=233216653]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 100.0
+offset_right = 100.00052
+offset_bottom = 140.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 24
+text = "Game Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Data Container" type="HBoxContainer" parent="Win_Lose_Pause" unique_id=560556980]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FieldContainer" type="VBoxContainer" parent="Win_Lose_Pause/Data Container" unique_id=1511145850]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScoreText" type="RichTextLabel" parent="Win_Lose_Pause/Data Container/FieldContainer" unique_id=869233614]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Score:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="FinalMoodText" type="RichTextLabel" parent="Win_Lose_Pause/Data Container/FieldContainer" unique_id=1522944676]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Final Mood:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ValueContainer" type="VBoxContainer" parent="Win_Lose_Pause/Data Container" unique_id=784079568]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScoreData" type="RichTextLabel" parent="Win_Lose_Pause/Data Container/ValueContainer" unique_id=1482037763]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "999999"
+vertical_alignment = 1
+
+[node name="FinalMoodData" type="RichTextLabel" parent="Win_Lose_Pause/Data Container/ValueContainer" unique_id=1667455776]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Satisfactory"
+vertical_alignment = 1
+
+[node name="ButtonContainer" type="VBoxContainer" parent="Win_Lose_Pause" unique_id=603913237]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -248.0
+offset_right = 75.0
+offset_bottom = -91.99994
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 15
+
+[node name="ResumeButton" type="Button" parent="Win_Lose_Pause/ButtonContainer" unique_id=1945452250]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Resume"
+script = ExtResource("2_4beqq")
+metadata/_custom_type_script = "uid://bcwfj12qcdjjk"
+
+[node name="RetryButton" type="Button" parent="Win_Lose_Pause/ButtonContainer" unique_id=266096553]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Retry"
+script = ExtResource("2_4beqq")
+metadata/_custom_type_script = "uid://bcwfj12qcdjjk"
+
+[node name="MainMenuButton" type="Button" parent="Win_Lose_Pause/ButtonContainer" unique_id=625905174]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Main Menu"
+script = ExtResource("2_4beqq")
+metadata/_custom_type_script = "uid://bcwfj12qcdjjk"
+
+[node name="QuitButton" type="Button" parent="Win_Lose_Pause/ButtonContainer" unique_id=452108315]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Quit Game"
+script = ExtResource("2_4beqq")
+metadata/_custom_type_script = "uid://bcwfj12qcdjjk"
+
 [connection signal="pressed" from="MainMenu/Background/TitleArea/QuitButton" to="." method="PressButton_Quit"]
 [connection signal="pressed" from="LevelSelect/Background/BackButton" to="." method="PressButton_Back"]
 [connection signal="pressed" from="Settings/Background/BackButton" to="." method="PressButton_Back"]
+[connection signal="pressed" from="Win_Lose_Pause/ButtonContainer/ResumeButton" to="." method="PressButton_Pause"]
+[connection signal="pressed" from="Win_Lose_Pause/ButtonContainer/RetryButton" to="." method="PressButton_ReloadCurrentLevel"]
+[connection signal="pressed" from="Win_Lose_Pause/ButtonContainer/MainMenuButton" to="." method="PressButton_Home"]
+[connection signal="pressed" from="Win_Lose_Pause/ButtonContainer/QuitButton" to="." method="PressButton_Quit"]
