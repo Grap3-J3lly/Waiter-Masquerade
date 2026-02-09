@@ -22,7 +22,7 @@ public partial class AudioManager : Node
     }
 
     [Export]
-    public Dictionary<SFXType, AudioStreamOggVorbis> sfxLibrary = new Dictionary<SFXType, AudioStreamOggVorbis>();
+    public Dictionary<SFXType, AudioStream> sfxLibrary = new Dictionary<SFXType, AudioStream>();
 
     private const int sfxAudioBusIndex = 1;
 

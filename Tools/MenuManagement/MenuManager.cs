@@ -10,6 +10,7 @@ public partial class MenuManager : CanvasLayer
     // --------------------------------
     [Export]
     private Array<Control> menus = new Array<Control>();
+    private Control currentMenu;
     private Control previousMenu;
 
     [Export]
@@ -17,12 +18,20 @@ public partial class MenuManager : CanvasLayer
 
     [Export]
     private Array<GeneralButton> levelButtons = new Array<GeneralButton>();
+
+    // --------------------------------
+    //			CONSTANTS   	
+    // --------------------------------
+    private const int CONST_MainMenuIndex = 0;
+    private const int CONST_WinLosePauseIndex = 3;
     
     // --------------------------------
     //			PROPERTIES	
     // --------------------------------
 
     public static MenuManager Instance { get; private set; }
+
+    public Control CurrentMenu { get; }
 
     public Array<Control> Menus { get => menus; }
     public Control PreviousMenu { get => previousMenu; set => previousMenu = value; }
@@ -36,11 +45,14 @@ public partial class MenuManager : CanvasLayer
     {
         Instance = this;
         base._Ready();
-        previousMenu = menus[0];
+        previousMenu = menus[CONST_MainMenuIndex];
+
+        OpenMenu(CONST_MainMenuIndex);
 
         foreach(KeyValuePair<GeneralButton, Godot.Collections.Array> buttonPair in menuButtons)
         {
             GeneralButton currentButton = buttonPair.Key;
+            // GD.Print($"MenuManager.cs: Setting up action for button: {currentButton.Name}");
             int currentMenuIndex = (int)buttonPair.Value[0];
             bool clearPreviousMenuValue = (bool)buttonPair.Value[1];
             
@@ -71,12 +83,14 @@ public partial class MenuManager : CanvasLayer
     {
         CloseMenus(clearPreviousMenu);
         menus[menuIndex].Visible = true;
+        currentMenu = menus[menuIndex];
     }
 
     public void CloseMenus(bool clearPreviousMenu = false)
     {
         foreach (Control menu in menus)
         {
+            GD.Print($"MenuManager.cs: Closing Menu: {menu.Name}");
             if (menu.Visible)
             {
                 previousMenu = menu;
@@ -88,6 +102,26 @@ public partial class MenuManager : CanvasLayer
         {
             previousMenu = null;
         }
+        currentMenu = null;
+    }
+
+    public void OpenWinLosePauseScreen(bool gameOver, bool gameWon = false)
+    {
+        WinLosePauseScreen wlpScreen = (WinLosePauseScreen)menus[CONST_WinLosePauseIndex];
+        WinLosePauseScreen.ScreenMode newMode;
+
+        if(gameOver)
+        {
+            newMode = gameWon ? WinLosePauseScreen.ScreenMode.WIN : WinLosePauseScreen.ScreenMode.LOSE;
+        }
+        else
+        {
+            newMode = WinLosePauseScreen.ScreenMode.PAUSE;
+        }
+
+        wlpScreen.Setup(newMode, GameManager.Instance.Score, GameManager.Instance.CurrentMood.ToString());
+        OpenMenu(CONST_WinLosePauseIndex);
+        Input.MouseMode = Input.MouseMode == Input.MouseModeEnum.Captured ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
     }
 
     // --------------------------------
@@ -97,7 +131,7 @@ public partial class MenuManager : CanvasLayer
     // This is probably a temporary functionality (famous last words) until I have a more robust menu management system
     public void PressButton_OpenMenuByIndex(int menuIndex, bool clearPreviousMenu = false)
     {
-        GD.Print($"MenuManager.cs: Opening Menu via Button Press");
+        GD.Print($"MenuManager.cs: Opening Menu via Button Press. MenuIndex: {menuIndex} Clear Previous Menu? {clearPreviousMenu}");
         OpenMenu(menuIndex, clearPreviousMenu);
     }
 
@@ -111,6 +145,7 @@ public partial class MenuManager : CanvasLayer
         }
         else
         {
+            GD.Print($"MenuManager.cs: Closing Menus in Back Button");
             CloseMenus();
         }
     }
@@ -125,9 +160,17 @@ public partial class MenuManager : CanvasLayer
         // Adjusting from 0-based index to 1-based index
         ++levelIndex;
         GD.Print($"MenuManager.cs: Assigned Level Index: {levelIndex}");
-        CloseMenus(true);
-        // GameManager.Instance.CurrentDifficulty = gameDifficulty;
-        SceneManager.LoadScene(levelIndex, false);
+        CloseMenus(clearPreviousMenu: true);
+        SceneManager.LoadScene(levelIndex, unloadPreviousScene: false);
+    }
+
+    public void PressButton_ReloadCurrentLevel()
+    {
+        GD.Print($"MenuManager.cs: Reloading Current Level");
+        SceneManager.UnloadScene(SceneManager.Instance.CurrentScene);
+        SceneManager.LoadScene(SceneManager.Instance.CurrentSceneIndex, unloadPreviousScene: false);
+        CloseMenus(clearPreviousMenu: true);
+        // CallDeferred("CloseMenus", true);
     }
 
     public void PressButton_Quit()
@@ -137,6 +180,9 @@ public partial class MenuManager : CanvasLayer
 
     public void PressButton_Pause()
     {
-        // To Be Implemented
+        GD.Print($"MenuManager.cs: Pause Button Clicked");
+        GameManager gameManager = GameManager.Instance;
+        gameManager.Pause(!gameManager.GamePaused);
+        // Input.MouseMode = Input.MouseMode == Input.MouseModeEnum.Captured ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
     }
 }

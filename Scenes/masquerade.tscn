@@ -5,12 +5,14 @@
 [ext_resource type="PackedScene" uid="uid://dr2u8j37486mx" path="res://Scenes/Levels/room-func-blockout.tscn" id="2_robrs"]
 [ext_resource type="PackedScene" uid="uid://mwbm6usjuxel" path="res://Entities/Objects/Drinks/default_drink.tscn" id="3_atwm2"]
 [ext_resource type="PackedScene" uid="uid://drvfaj1500oxc" path="res://Entities/Characters/Guests/guestTemplate.tscn" id="4_kvb1r"]
+[ext_resource type="PackedScene" uid="uid://3hsnqa8p3tys" path="res://UI/ui.tscn" id="6_atwm2"]
 
 [node name="Masquerade" type="Node3D" unique_id=1048129305]
 
 [node name="GameManager" type="Node" parent="." unique_id=1652663912 node_paths=PackedStringArray("player")]
 script = ExtResource("1_robrs")
 player = NodePath("../Player")
+gameDuration = 600.0
 
 [node name="Player" parent="." unique_id=1471031441 instance=ExtResource("1_7sx2d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -31,5 +33,7 @@ transform = Transform3D(0.1925734, 0, 0.9812826, 0, 1, 0, -0.9812826, 0, 0.19257
 
 [node name="Label3D" parent="GuestTemplate2" index="2" unique_id=1965826131]
 text = ""
+
+[node name="UI" parent="." unique_id=2014262819 instance=ExtResource("6_atwm2")]
 
 [editable path="GuestTemplate2"]
