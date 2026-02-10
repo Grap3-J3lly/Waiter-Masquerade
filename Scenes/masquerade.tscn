@@ -12,6 +12,7 @@
 [node name="GameManager" type="Node" parent="." unique_id=1652663912 node_paths=PackedStringArray("player")]
 script = ExtResource("1_robrs")
 player = NodePath("../Player")
+guessAttempts = 4
 gameDuration = 600.0
 
 [node name="Player" parent="." unique_id=1471031441 instance=ExtResource("1_7sx2d")]

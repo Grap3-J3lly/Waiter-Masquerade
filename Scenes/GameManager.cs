@@ -28,15 +28,22 @@ public partial class GameManager : Node
 	private bool gamePaused = false;
 	private bool gameStopped = false;
 
-	public enum CrowdMood
+	public enum GuestMood
 	{
-		SATISFACTORY,
-		ADEQUATE,
-		NEEDS_IMPROVEMENT,
-		DISSATISFIED
+		Satisfactory,
+		Adequate,
+		NeedsImprovement,
+		Dissatisfied
 	}
-	private CrowdMood currentMood = CrowdMood.SATISFACTORY; // Need to tie mood to guesses remaining
+	private GuestMood currentMood = GuestMood.Satisfactory; // Need to tie mood to guesses remaining
 	private int score = 0;
+
+	// --------------------------------
+    //			CONSTANTS	
+    // --------------------------------
+
+	private const int CONST_DefaultStartScore = 0;
+	private const int CONST_ScoreIncreaseAmount = 100;
 
 	// --------------------------------
     //			PROPERTIES	
@@ -45,7 +52,7 @@ public partial class GameManager : Node
 	public bool GamePaused { get => gamePaused; set => gamePaused = value; }
 	public bool GameStopped { get => gameStopped; set => gameStopped = value; }
 
-	public CrowdMood CurrentMood { get => currentMood; }
+	public GuestMood CurrentMood { get => currentMood; }
 	public int Score { get => score; }
 
 	// --------------------------------
@@ -86,6 +93,46 @@ public partial class GameManager : Node
 	{
 		uiManager = UIManager.Instance;
 		menuManager = MenuManager.Instance;
+
+		uiManager.MoodText = AssignMood(player.Guesses).ToString();
+		score = CONST_DefaultStartScore;
+		uiManager.ScoreText = score.ToString();
+	}
+
+	public void IncreaseScore()
+	{
+		score += CONST_ScoreIncreaseAmount;
+		uiManager.ScoreText = score.ToString();
+	}
+
+	private GuestMood AssignMood(int guessesMade)
+	{
+		float fTotalGuesses = (float)guessAttempts;
+		float fGuessesMade = (float)guessesMade;
+		float ratio = fGuessesMade / fTotalGuesses;
+
+		GD.Print($"GameManager.cs: Ratio of Guesses Made to Total Allowed: {ratio}");
+
+		GuestMood newMood = GuestMood.Dissatisfied;
+
+		if(ratio < 1.0f)
+		{
+			newMood = GuestMood.Dissatisfied;
+		}
+		if(ratio < .75f)
+		{
+			newMood = GuestMood.NeedsImprovement;
+		}
+		if(ratio < .5f)
+		{
+			newMood = GuestMood.Adequate;
+		}
+		if(ratio < .25f)
+		{
+			newMood = GuestMood.Satisfactory;
+		}
+
+		return newMood;
 	}
 
 	public void HandleGameOver()
@@ -105,6 +152,7 @@ public partial class GameManager : Node
 		else
 		{
 			// GD.Print($"GameManager.cs: Game Not Over Yet");
+			uiManager.MoodText = AssignMood(player.Guesses).ToString();
 			return;
 		}
 		menuManager.OpenWinLosePauseScreen(gameStopped, gameWon);

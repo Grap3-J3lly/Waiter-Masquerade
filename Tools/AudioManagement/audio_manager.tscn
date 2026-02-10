@@ -2,13 +2,27 @@
 
 [ext_resource type="Script" uid="uid://bcjlrdvkhu07" path="res://Tools/AudioManagement/AudioManager.cs" id="1_niwv0"]
 [ext_resource type="AudioStream" uid="uid://dpko7pb438qjk" path="res://Assets/Audio/SFX/UIInteractSound.ogg" id="2_eu42g"]
+[ext_resource type="AudioStream" uid="uid://birs1akc258nr" path="res://Assets/Audio/SFX/Player_DrinkPickup.wav" id="3_eu42g"]
 
-[node name="AudioManager" type="Node" unique_id=749267359 node_paths=PackedStringArray("sfxAudioPlayer")]
+[node name="AudioManager" type="Node" unique_id=749267359 node_paths=PackedStringArray("musicAudioPlayer", "sfxAudioPlayer", "playerAudioPlayer", "ambienceAudioPlayer")]
 script = ExtResource("1_niwv0")
+musicAudioPlayer = NodePath("StreamPlayer-Music")
 sfxAudioPlayer = NodePath("StreamPlayer-SFX")
-sfxLibrary = Dictionary[int, AudioStreamOggVorbis]({
-3: ExtResource("2_eu42g")
+sfxLibrary = Dictionary[int, AudioStream]({
+3: ExtResource("2_eu42g"),
+5: ExtResource("3_eu42g")
 })
+playerAudioPlayer = NodePath("StreamPlayer-PlayerAudio")
+ambienceAudioPlayer = NodePath("StreamPlayer-Ambience")
+
+[node name="StreamPlayer-Music" type="AudioStreamPlayer" parent="." unique_id=557127835]
+bus = &"MusicBus"
 
 [node name="StreamPlayer-SFX" type="AudioStreamPlayer" parent="." unique_id=1162855157]
 bus = &"SFXBus"
+
+[node name="StreamPlayer-PlayerAudio" type="AudioStreamPlayer" parent="." unique_id=1441647318]
+bus = &"PlayerBus"
+
+[node name="StreamPlayer-Ambience" type="AudioStreamPlayer" parent="." unique_id=236937511]
+bus = &"AmbienceBus"

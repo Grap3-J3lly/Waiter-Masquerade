@@ -5,11 +5,11 @@ public partial class WinLosePauseScreen : Control
 {
 	public enum ScreenMode
 	{
-		WIN,
-		LOSE,
-		PAUSE
+		Win,
+		Lose,
+		Pause
 	}
-	private ScreenMode assignedScreenMode = ScreenMode.PAUSE;
+	private ScreenMode assignedScreenMode = ScreenMode.Pause;
 
 
 	[Export]
@@ -30,7 +30,7 @@ public partial class WinLosePauseScreen : Control
 
 	public override void _Ready()
 	{
-		Setup(ScreenMode.PAUSE, 0, "");
+		Setup(ScreenMode.Pause, 0, "");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -41,21 +41,21 @@ public partial class WinLosePauseScreen : Control
 	public void Setup(ScreenMode newScreenMode, int currentScore, string currentMood)
 	{
 		assignedScreenMode = newScreenMode;
-		resumeButton.Visible = assignedScreenMode == ScreenMode.PAUSE;
-		retryButton.Visible = assignedScreenMode != ScreenMode.PAUSE;
+		resumeButton.Visible = assignedScreenMode == ScreenMode.Pause;
+		retryButton.Visible = assignedScreenMode != ScreenMode.Pause;
 
 		scoreDataLabel.Text = currentScore.ToString();
 		moodDataLabel.Text = currentMood;
 
 		switch(assignedScreenMode)
 		{
-			case ScreenMode.PAUSE:
+			case ScreenMode.Pause:
 			titleDataLabel.Text = CONST_TitleText_Pause;
 			break;
-			case ScreenMode.LOSE:
+			case ScreenMode.Lose:
 			titleDataLabel.Text = CONST_TitleText_Lose;
 			break;
-			case ScreenMode.WIN:
+			case ScreenMode.Win:
 			titleDataLabel.Text = CONST_TitleText_Win;
 			break;
 		}
