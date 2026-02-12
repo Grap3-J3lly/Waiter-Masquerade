@@ -207,8 +207,7 @@ text = "Back"
 icon_alignment = 1
 script = ExtResource("2_4beqq")
 
-[node name="Settings" type="Control" parent="." unique_id=615102999 node_paths=PackedStringArray("sfxSlider")]
-visible = false
+[node name="Settings" type="Control" parent="." unique_id=615102999 node_paths=PackedStringArray("audioSliderByType")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -216,7 +215,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_staha")
-sfxSlider = NodePath("Background/VBoxContainer/HSlider")
+audioSliderByType = {
+0: NodePath("VBoxContainer/Section_MasterVolume/Slider_MasterVolume"),
+1: NodePath("VBoxContainer/Section_MusicVolume/Slider_MusicVolume"),
+2: NodePath("VBoxContainer/Section_SFXVolume/Slider_SFXVolume")
+}
 
 [node name="Background" type="TextureRect" parent="Settings" unique_id=2100618747]
 layout_mode = 1
@@ -227,36 +230,115 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_c83w7")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Settings/Background" unique_id=1602000485]
-custom_minimum_size = Vector2(250, 0)
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings" unique_id=1602000485]
+custom_minimum_size = Vector2(500, 500)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -100.0
+offset_left = -125.0
 offset_top = -79.0
-offset_right = 100.0
-offset_bottom = 79.0
+offset_right = 125.0
+offset_bottom = 61.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 15
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Settings/Background/VBoxContainer" unique_id=1484365342]
-custom_minimum_size = Vector2(0, 50)
+[node name="TitleLabel_Settings" type="RichTextLabel" parent="Settings/VBoxContainer" unique_id=1118446848]
+custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 30
-bbcode_enabled = true
-text = "[center]SFX Volume"
+theme_override_font_sizes/normal_font_size = 35
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="HSlider" type="HSlider" parent="Settings/Background/VBoxContainer" unique_id=1686188840]
-custom_minimum_size = Vector2(100, 75)
+[node name="Section_MasterVolume" type="Control" parent="Settings/VBoxContainer" unique_id=1301748134]
+custom_minimum_size = Vector2(0, 85)
 layout_mode = 2
+
+[node name="Label_MasterVolume" type="RichTextLabel" parent="Settings/VBoxContainer/Section_MasterVolume" unique_id=1484365342]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 35.0
+theme_override_font_sizes/normal_font_size = 24
+text = "Master Volume"
+
+[node name="Slider_MasterVolume" type="HSlider" parent="Settings/VBoxContainer/Section_MasterVolume" unique_id=1686188840]
+custom_minimum_size = Vector2(60, 50)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -50.0
+offset_right = 250.0
+grow_horizontal = 2
+grow_vertical = 0
 max_value = 1.0
 step = 0.1
 
-[node name="BackButton" type="Button" parent="Settings/Background" unique_id=745835564]
+[node name="Section_MusicVolume" type="Control" parent="Settings/VBoxContainer" unique_id=1877430974]
+custom_minimum_size = Vector2(0, 85)
+layout_mode = 2
+
+[node name="Label_MusicVolume" type="RichTextLabel" parent="Settings/VBoxContainer/Section_MusicVolume" unique_id=2086765579]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 35.0
+theme_override_font_sizes/normal_font_size = 24
+text = "Music Volume"
+
+[node name="Slider_MusicVolume" type="HSlider" parent="Settings/VBoxContainer/Section_MusicVolume" unique_id=1083764158]
+custom_minimum_size = Vector2(60, 50)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -50.0
+offset_right = 250.0
+grow_horizontal = 2
+grow_vertical = 0
+max_value = 1.0
+step = 0.1
+
+[node name="Section_SFXVolume" type="Control" parent="Settings/VBoxContainer" unique_id=1126580673]
+custom_minimum_size = Vector2(0, 85)
+layout_mode = 2
+
+[node name="Label_SFXVolume" type="RichTextLabel" parent="Settings/VBoxContainer/Section_SFXVolume" unique_id=293708956]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 35.0
+theme_override_font_sizes/normal_font_size = 24
+text = "SFX Volume"
+
+[node name="Slider_SFXVolume" type="HSlider" parent="Settings/VBoxContainer/Section_SFXVolume" unique_id=1435276329]
+custom_minimum_size = Vector2(60, 50)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -50.0
+offset_right = 250.0
+grow_horizontal = 2
+grow_vertical = 0
+max_value = 1.0
+step = 0.1
+
+[node name="BackButton" type="Button" parent="Settings" unique_id=745835564]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 1
 anchors_preset = 2
@@ -274,6 +356,7 @@ icon_alignment = 1
 script = ExtResource("2_4beqq")
 
 [node name="Win_Lose_Pause" type="Control" parent="." unique_id=1759944445 node_paths=PackedStringArray("resumeButton", "retryButton", "titleDataLabel", "scoreDataLabel", "moodDataLabel")]
+visible = false
 z_index = 10
 custom_minimum_size = Vector2(450, 0)
 layout_mode = 3
@@ -439,7 +522,7 @@ metadata/_custom_type_script = "uid://bcwfj12qcdjjk"
 
 [connection signal="pressed" from="MainMenu/Background/TitleArea/QuitButton" to="." method="PressButton_Quit"]
 [connection signal="pressed" from="LevelSelect/Background/BackButton" to="." method="PressButton_Back"]
-[connection signal="pressed" from="Settings/Background/BackButton" to="." method="PressButton_Back"]
+[connection signal="pressed" from="Settings/BackButton" to="." method="PressButton_Back"]
 [connection signal="pressed" from="Win_Lose_Pause/ButtonContainer/ResumeButton" to="." method="PressButton_Pause"]
 [connection signal="pressed" from="Win_Lose_Pause/ButtonContainer/RetryButton" to="." method="PressButton_ReloadCurrentLevel"]
 [connection signal="pressed" from="Win_Lose_Pause/ButtonContainer/MainMenuButton" to="." method="PressButton_Home"]

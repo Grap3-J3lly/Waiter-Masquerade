@@ -71,7 +71,12 @@ public partial class MenuManager : CanvasLayer
                 levelButtons[i].Pressed += buttonAction;
             }
         }
-        
+        CallDeferred("DelayedSetup");
+    }
+
+    private void DelayedSetup()
+    {
+        // AudioManager.Instance.PlayMusic_Global(AudioManager.MusicType.Background);
     }
 
     // --------------------------------

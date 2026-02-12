@@ -7,7 +7,7 @@ public partial class AudioManager : Node
     // --------------------------------
     //			VARIABLES	
     // --------------------------------
-    
+
     #region MUSIC
     // Music 
     [ExportGroup("Music")]
@@ -82,7 +82,7 @@ public partial class AudioManager : Node
     // --------------------------------
     //			CONSTANTS	
     // --------------------------------
-
+    
     private const int CONST_MusicAudioBusIndex = 1;
     private const int CONST_SfxAudioBusIndex = 2;
     private const int CONST_PlayerAudioBusIndex = 3;
@@ -134,17 +134,20 @@ public partial class AudioManager : Node
 
     private void AssignDefaultVolumeLevel()
     {
+        double masterValue = (double)SaveSystem.GetDataItem("Settings", "masterVolume", defaultValue: 0.0f);
+        AudioServer.SetBusVolumeDb((int)SettingsManager.AudioSettings.Master, (float)Mathf.LinearToDb(masterValue));
+
         double musicValue = (double)SaveSystem.GetDataItem("Settings", "musicVolume", defaultValue: 0.0f);
-        AudioServer.SetBusVolumeDb(CONST_MusicAudioBusIndex, (float)Mathf.LinearToDb(musicValue));
+        AudioServer.SetBusVolumeDb((int)SettingsManager.AudioSettings.Music, (float)Mathf.LinearToDb(musicValue));
 
         double sfxValue = (double)SaveSystem.GetDataItem("Settings", "sfxVolume", defaultValue: 0.0f);
-        AudioServer.SetBusVolumeDb(CONST_SfxAudioBusIndex, (float)Mathf.LinearToDb(sfxValue));
+        AudioServer.SetBusVolumeDb((int)SettingsManager.AudioSettings.SFX, (float)Mathf.LinearToDb(sfxValue));
 
-        double playerValue = (double)SaveSystem.GetDataItem("Settings", "playerAudioVolume", defaultValue: 0.0f);
-        AudioServer.SetBusVolumeDb(CONST_PlayerAudioBusIndex, (float)Mathf.LinearToDb(playerValue));
+        // double playerValue = (double)SaveSystem.GetDataItem("Settings", "playerAudioVolume", defaultValue: 0.0f);
+        // AudioServer.SetBusVolumeDb(CONST_PlayerAudioBusIndex, (float)Mathf.LinearToDb(playerValue));
 
-        double ambienceValue = (double)SaveSystem.GetDataItem("Settings", "ambienceVolume", defaultValue: 0.0f);
-        AudioServer.SetBusVolumeDb(CONST_AmbienceAudioBusIndex, (float)Mathf.LinearToDb(ambienceValue));
+        // double ambienceValue = (double)SaveSystem.GetDataItem("Settings", "ambienceVolume", defaultValue: 0.0f);
+        // AudioServer.SetBusVolumeDb(CONST_AmbienceAudioBusIndex, (float)Mathf.LinearToDb(ambienceValue));
     }
 
     // --------------------------------
