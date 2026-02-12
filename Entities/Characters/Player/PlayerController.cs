@@ -139,10 +139,9 @@ public partial class PlayerController : CharacterBody3D
 
 	private void HandleGuestInteraction(Guest guest)
 	{
-		bool correctGuest = heldDrink.IsAssignedGuest(guest);
-		GD.Print($"Does Drink Belong to this Guest? {correctGuest}");
+		GD.Print($"PlayerController.cs: Selected Guest: {guest}, AssignedGuest: {heldDrink.AssignedGuest}");
 
-		if(correctGuest)
+		if(heldDrink.AssignedGuest == guest)
 		{
 			guest.TakeDrink(heldDrink);
 			guesses = 0;

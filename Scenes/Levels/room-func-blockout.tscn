@@ -327,6 +327,9 @@ transform = Transform3D(-4.3711385e-08, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, 
 mesh = SubResource("QuadMesh_552lv")
 surface_material_override/0 = SubResource("StandardMaterial3D_8qa40")
 
+[node name="DrinkSpawnLocation" type="Marker3D" parent="Bar-Blockout/Bar" unique_id=234956186]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.094, -1.29, -1.745)
+
 [node name="Wall-Extras" type="Node3D" parent="." unique_id=613680032]
 
 [node name="WallDoor" type="MeshInstance3D" parent="Wall-Extras" unique_id=371707986]

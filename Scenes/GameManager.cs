@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 
 public partial class GameManager : Node
@@ -7,13 +8,16 @@ public partial class GameManager : Node
     //			VARIABLES	
     // --------------------------------
 
+	// Managers
 	public static GameManager Instance;
 	private MenuManager menuManager;
 	private UIManager uiManager;
 
+	// Player
 	[Export]
 	private PlayerController player;
 
+	// Game Rules
 	[Export]
 	private int guessAttempts = 3;
 	
@@ -22,9 +26,6 @@ public partial class GameManager : Node
 	private float timeRemaining;
 	private TimeSpan time;
 	
-	[Export]
-	private int finalScreenIndex = 3;
-
 	private bool gamePaused = false;
 	private bool gameStopped = false;
 
@@ -37,6 +38,21 @@ public partial class GameManager : Node
 	}
 	private GuestMood currentMood = GuestMood.Satisfactory; // Need to tie mood to guesses remaining
 	private int score = 0;
+
+	// Dynamic Menu
+
+	[Export]
+	private int finalScreenIndex = 3;
+
+	// Spawnable Objects that probably need to be moved to an ObjectPool 
+	[Export]
+	private Node objectPool;
+	[Export]
+	private Marker3D drinkSpawnLocation;
+	[Export]
+	private PackedScene drinkScene;
+	[Export]
+	private Array<Guest> guests = new Array<Guest>();
 
 	// --------------------------------
     //			CONSTANTS	
@@ -86,7 +102,7 @@ public partial class GameManager : Node
 	}
 
 	// --------------------------------
-    //		MISC FUNCTIONS	
+	//		SETUP FUNCTIONS	
     // --------------------------------
 
 	private void Setup()
@@ -97,7 +113,21 @@ public partial class GameManager : Node
 		uiManager.MoodText = AssignMood(player.Guesses).ToString();
 		score = CONST_DefaultStartScore;
 		uiManager.ScoreText = score.ToString();
+
+		SpawnDrink();
 	}
+
+	private void SpawnDrink()
+	{
+		Drink newDrink = drinkScene.Instantiate<Drink>();
+		objectPool.AddChild(newDrink);
+		newDrink.GlobalPosition = drinkSpawnLocation.GlobalPosition;
+		newDrink.PickGuest(guests);
+	}
+
+	// --------------------------------
+	//		GAME CONTROL FUNCTIONS	
+    // --------------------------------
 
 	public void IncreaseScore()
 	{

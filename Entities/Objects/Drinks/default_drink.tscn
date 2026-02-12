@@ -1,23 +1,28 @@
 [gd_scene format=3 uid="uid://mwbm6usjuxel"]
 
-[ext_resource type="Texture2D" uid="uid://bf5k6mlq2beji" path="res://Assets/Temp/cjHello.png" id="1_50k8t"]
 [ext_resource type="Script" uid="uid://b6rg3r7bvm8nx" path="res://Entities/Objects/Drinks/Drink.cs" id="1_tte36"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28aoi"]
-albedo_texture = ExtResource("1_50k8t")
-billboard_mode = 2
+[ext_resource type="Material" uid="uid://ps2hyge4k36m" path="res://Entities/Objects/Drinks/drinkMaterial.tres" id="2_a3su6"]
+[ext_resource type="Texture2D" uid="uid://rw36d1iifuq3" path="res://Assets/Art/Drinks/Drink-Champ-N.png" id="2_w3jd4"]
+[ext_resource type="Texture2D" uid="uid://tou6iwr4t2in" path="res://Assets/Art/Drinks/Drink-Martini-N.png" id="3_a3su6"]
+[ext_resource type="Texture2D" uid="uid://crmjd431ehmy2" path="res://Assets/Art/Drinks/Drink-OldF-N.png" id="4_rgr0a"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_jnlp7"]
-material = SubResource("StandardMaterial3D_28aoi")
+material = ExtResource("2_a3su6")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vvh5c"]
 size = Vector3(1, 1, 0.3)
 
 [node name="Drink" type="Area3D" unique_id=556874129]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_tte36")
+drinkMaterial = ExtResource("2_a3su6")
+drinkOptions = Array[Texture2D]([ExtResource("2_w3jd4"), ExtResource("3_a3su6"), ExtResource("4_rgr0a")])
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1471443277]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("QuadMesh_jnlp7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=811958004]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_vvh5c")
