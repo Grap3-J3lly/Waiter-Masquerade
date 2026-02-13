@@ -42,4 +42,7 @@ text = ""
 [node name="UI" parent="." unique_id=2014262819 instance=ExtResource("6_atwm2")]
 
 [editable path="RoomFuncBlockout"]
+[editable path="GuestTemplate"]
+[editable path="GuestTemplate/Body/Mask"]
 [editable path="GuestTemplate2"]
+[editable path="GuestTemplate2/Body/Mask"]

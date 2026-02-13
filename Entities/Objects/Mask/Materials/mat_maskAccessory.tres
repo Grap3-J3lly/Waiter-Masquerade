@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://4p37c72oy2un"]
+
+[ext_resource type="Texture2D" uid="uid://c84guao20xdrd" path="res://Assets/Art/Masks/Acess-Mask-Jewel.png" id="1_t0js5"]
+
+[resource]
+transparency = 1
+albedo_texture = ExtResource("1_t0js5")
