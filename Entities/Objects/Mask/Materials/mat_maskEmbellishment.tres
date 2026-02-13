@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cuybdik6pcp4t"]
+
+[ext_resource type="Texture2D" uid="uid://di8we2o3ibdtb" path="res://Assets/Art/Masks/Emb-Mask-Dots.png" id="1_r4lfb"]
+
+[resource]
+transparency = 1
+albedo_texture = ExtResource("1_r4lfb")

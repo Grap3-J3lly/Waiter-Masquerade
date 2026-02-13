@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://ps2hyge4k36m"]
+
+[ext_resource type="Texture2D" uid="uid://bf5k6mlq2beji" path="res://Assets/Temp/cjHello.png" id="1_qwoqq"]
+
+[resource]
+transparency = 1
+albedo_texture = ExtResource("1_qwoqq")
+billboard_mode = 2

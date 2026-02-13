@@ -1,5 +1,9 @@
 [gd_scene format=3 uid="uid://dr2u8j37486mx"]
 
+[ext_resource type="Texture2D" uid="uid://rw36d1iifuq3" path="res://Assets/Art/Drinks/Drink-Champ-N.png" id="1_tyrrd"]
+[ext_resource type="Texture2D" uid="uid://tou6iwr4t2in" path="res://Assets/Art/Drinks/Drink-Martini-N.png" id="2_udvha"]
+[ext_resource type="Texture2D" uid="uid://crmjd431ehmy2" path="res://Assets/Art/Drinks/Drink-OldF-N.png" id="3_ud424"]
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_fcrp2"]
 size = Vector2(15, 30)
 
@@ -68,6 +72,20 @@ size = Vector3(1, 0.25, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fcrp2"]
 size = Vector3(2.5, 5, 4)
+
+[sub_resource type="QuadMesh" id="QuadMesh_552lv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uu3lp"]
+transparency = 1
+albedo_texture = ExtResource("1_tyrrd")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ur5cm"]
+transparency = 1
+albedo_texture = ExtResource("2_udvha")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8qa40"]
+transparency = 1
+albedo_texture = ExtResource("3_ud424")
 
 [sub_resource type="BoxMesh" id="BoxMesh_uersp"]
 size = Vector3(0.25, 3, 1.5)
@@ -293,6 +311,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0, 0)
 light_color = Color(1, 1, 0.81960785, 1)
 shadow_enabled = true
 omni_range = 3.0
+
+[node name="DrinkMesh" type="MeshInstance3D" parent="Bar-Blockout/Bar" unique_id=530745022]
+transform = Transform3D(-4.3711385e-08, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -4.3711385e-08, 1.1808639, -0.777493, -0.99710464)
+mesh = SubResource("QuadMesh_552lv")
+surface_material_override/0 = SubResource("StandardMaterial3D_uu3lp")
+
+[node name="DrinkMesh2" type="MeshInstance3D" parent="Bar-Blockout/Bar" unique_id=2041372425]
+transform = Transform3D(-4.3711385e-08, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -4.3711385e-08, 1.1808639, -0.78919125, -0.09338474)
+mesh = SubResource("QuadMesh_552lv")
+surface_material_override/0 = SubResource("StandardMaterial3D_ur5cm")
+
+[node name="DrinkMesh3" type="MeshInstance3D" parent="Bar-Blockout/Bar" unique_id=2006083971]
+transform = Transform3D(-4.3711385e-08, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -4.3711385e-08, 1.1808639, -0.7852335, 0.8845196)
+mesh = SubResource("QuadMesh_552lv")
+surface_material_override/0 = SubResource("StandardMaterial3D_8qa40")
+
+[node name="DrinkSpawnLocation" type="Marker3D" parent="Bar-Blockout/Bar" unique_id=234956186]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.094, -1.29, -1.745)
 
 [node name="Wall-Extras" type="Node3D" parent="." unique_id=613680032]
 

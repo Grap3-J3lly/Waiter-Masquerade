@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmh2t37uvjfpj"
-path.s3tc="res://.godot/imported/Mask-F-Out.png-0c940bf3e06c6bff72b06762edd7bff7.s3tc.ctex"
+uid="uid://rw36d1iifuq3"
+path.s3tc="res://.godot/imported/Drink-Champ-N.png-8b5ee6a0d2363e649616721f8f63bac3.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Art/Masks/Mask-F-Out.png"
-dest_files=["res://.godot/imported/Mask-F-Out.png-0c940bf3e06c6bff72b06762edd7bff7.s3tc.ctex"]
+source_file="res://Assets/Art/Drinks/Drink-Champ-N.png"
+dest_files=["res://.godot/imported/Drink-Champ-N.png-8b5ee6a0d2363e649616721f8f63bac3.s3tc.ctex"]
 
 [params]
 

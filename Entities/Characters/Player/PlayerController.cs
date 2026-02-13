@@ -133,23 +133,27 @@ public partial class PlayerController : CharacterBody3D
 	{
 		drink.Reparent(theHand, keepGlobalTransform:false);
 		drink.Position = Vector3.Zero;
+		drink.Rotation = new Vector3(0, 180, 0);
 		heldDrink = drink;
+		AudioManager.Instance.PlaySFX_Global(AudioManager.SFXType.ItemInteract_One);
+		gameManager.ResetDrinkTimer();
 	}
 
 	private void HandleGuestInteraction(Guest guest)
 	{
-		bool correctGuest = heldDrink.IsAssignedGuest(guest);
-		GD.Print($"Does Drink Belong to this Guest? {correctGuest}");
+		GD.Print($"PlayerController.cs: Selected Guest: {guest}, AssignedGuest: {heldDrink.AssignedGuest}");
 
-		if(correctGuest)
+		if(heldDrink.AssignedGuest == guest)
 		{
 			guest.TakeDrink(heldDrink);
 			guesses = 0;
+			gameManager.IncreaseScore();
+			heldDrink = null;
 		}
 		else
 		{
 			++guesses;
-			gameManager.HandleGameOver();
 		}
+		gameManager.HandleGameOver();
 	}
 }

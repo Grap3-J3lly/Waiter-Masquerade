@@ -7,7 +7,7 @@
 
 [node name="Managers" type="Node" parent="." unique_id=1275277068]
 
+[node name="AudioManager" parent="Managers" unique_id=749267359 instance=ExtResource("2_pyidc")]
+
 [node name="SceneManager" parent="Managers" unique_id=1617894014 instance=ExtResource("1_vvh5c")]
 scenePaths = Array[String](["res://Tools/MenuManagement/menu_system.tscn", "res://Scenes/masquerade.tscn"])
-
-[node name="AudioManager" parent="Managers" unique_id=749267359 instance=ExtResource("2_pyidc")]

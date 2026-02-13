@@ -71,7 +71,12 @@ public partial class MenuManager : CanvasLayer
                 levelButtons[i].Pressed += buttonAction;
             }
         }
-        
+        CallDeferred("DelayedSetup");
+    }
+
+    private void DelayedSetup()
+    {
+        // AudioManager.Instance.PlayMusic_Global(AudioManager.MusicType.Background);
     }
 
     // --------------------------------
@@ -112,11 +117,11 @@ public partial class MenuManager : CanvasLayer
 
         if(gameOver)
         {
-            newMode = gameWon ? WinLosePauseScreen.ScreenMode.WIN : WinLosePauseScreen.ScreenMode.LOSE;
+            newMode = gameWon ? WinLosePauseScreen.ScreenMode.Win : WinLosePauseScreen.ScreenMode.Lose;
         }
         else
         {
-            newMode = WinLosePauseScreen.ScreenMode.PAUSE;
+            newMode = WinLosePauseScreen.ScreenMode.Pause;
         }
 
         wlpScreen.Setup(newMode, GameManager.Instance.Score, GameManager.Instance.CurrentMood.ToString());

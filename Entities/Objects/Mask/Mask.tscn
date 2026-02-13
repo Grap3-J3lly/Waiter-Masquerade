@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://di2nk0m7jh8jp"]
+
+[ext_resource type="Script" uid="uid://dwmepm8dqygv2" path="res://Entities/Objects/Mask/Mask.cs" id="1_fdh3e"]
+[ext_resource type="Texture2D" uid="uid://bwhi1fp2ds46t" path="res://Assets/Art/Masks/Mask-C-Out.png" id="1_kn7on"]
+[ext_resource type="QuadMesh" uid="uid://clurgqufc4bxu" path="res://Entities/Objects/Mask/Meshes/mesh_maskOutline.tres" id="2_1me0m"]
+[ext_resource type="Texture2D" uid="uid://di8we2o3ibdtb" path="res://Assets/Art/Masks/Emb-Mask-Dots.png" id="2_kj078"]
+[ext_resource type="Texture2D" uid="uid://bmh2t37uvjfpj" path="res://Assets/Art/Masks/Mask-F-Out.png" id="3_8xjpt"]
+[ext_resource type="Texture2D" uid="uid://bvkcxbyryy56d" path="res://Assets/Art/Masks/Mask-C-Inner.png" id="3_fdh3e"]
+[ext_resource type="Material" uid="uid://bo3txjjrfl2us" path="res://Entities/Objects/Mask/Materials/mat_maskFill.tres" id="3_kn7on"]
+[ext_resource type="Texture2D" uid="uid://c84guao20xdrd" path="res://Assets/Art/Masks/Acess-Mask-Jewel.png" id="4_1me0m"]
+[ext_resource type="Texture2D" uid="uid://dslb7rum8nir7" path="res://Assets/Art/Masks/Mask-T-Out.png" id="4_fw1sb"]
+[ext_resource type="Material" uid="uid://4p37c72oy2un" path="res://Entities/Objects/Mask/Materials/mat_maskAccessory.tres" id="4_kj078"]
+[ext_resource type="QuadMesh" uid="uid://c6k7exdeintqh" path="res://Entities/Objects/Mask/Meshes/mesh_maskFill.tres" id="6_4kyx0"]
+[ext_resource type="Texture2D" uid="uid://fwyoa3u67o3r" path="res://Assets/Art/Masks/Mask-F-Inner.png" id="6_jqyf8"]
+[ext_resource type="Texture2D" uid="uid://chaubbxdj4l77" path="res://Assets/Art/Masks/Mask-T-Inner.png" id="7_giohh"]
+[ext_resource type="QuadMesh" uid="uid://b8fy0kt55phbn" path="res://Entities/Objects/Mask/Meshes/mesh_maskAccessory.tres" id="8_32agq"]
+[ext_resource type="Texture2D" uid="uid://dwk6jewnde21b" path="res://Assets/Art/Masks/Emb-Mask-Swirl.png" id="9_bmv2p"]
+[ext_resource type="Texture2D" uid="uid://d37srbhmvt5p4" path="res://Assets/Art/Masks/Acess-Mask-Feather.png" id="10_oxx6y"]
+[ext_resource type="Material" uid="uid://cr21jxf8hfyk3" path="res://Entities/Objects/Mask/Materials/mat_maskOutline.tres" id="13_r05uv"]
+[ext_resource type="QuadMesh" uid="uid://d30tcjshus5t1" path="res://Entities/Objects/Mask/Meshes/mesh_MaskEmbellishment.tres" id="14_najqo"]
+[ext_resource type="Material" uid="uid://cuybdik6pcp4t" path="res://Entities/Objects/Mask/Materials/mat_maskEmbellishment.tres" id="15_exkbd"]
+
+[node name="Mask" type="Node3D" unique_id=984550983]
+script = ExtResource("1_fdh3e")
+maskOutlines = Array[Texture2D]([ExtResource("1_kn7on"), ExtResource("3_8xjpt"), ExtResource("4_fw1sb")])
+maskFills = Array[Texture2D]([ExtResource("3_fdh3e"), ExtResource("6_jqyf8"), ExtResource("7_giohh")])
+maskEmbellishments = Array[Texture2D]([ExtResource("2_kj078"), ExtResource("9_bmv2p")])
+maskAccessory = Array[Texture2D]([ExtResource("10_oxx6y"), ExtResource("4_1me0m")])
+maskMeshMats = Dictionary[int, Array]({
+0: [NodePath("MaskOutline"), ExtResource("13_r05uv")],
+1: [NodePath("MaskEmbellishment"), ExtResource("15_exkbd")],
+2: [NodePath("MaskFill"), ExtResource("3_kn7on")],
+3: [NodePath("MaskAccessory"), ExtResource("4_kj078")]
+})
+
+[node name="MaskOutline" type="MeshInstance3D" parent="." unique_id=1457526275]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01)
+sorting_offset = 0.1
+mesh = ExtResource("2_1me0m")
+
+[node name="MaskEmbellishment" type="MeshInstance3D" parent="." unique_id=1903247109]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01)
+sorting_offset = 0.15
+mesh = ExtResource("14_najqo")
+
+[node name="MaskFill" type="MeshInstance3D" parent="." unique_id=984036806]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01)
+sorting_offset = 0.05
+mesh = ExtResource("6_4kyx0")
+
+[node name="MaskAccessory" type="MeshInstance3D" parent="." unique_id=356987551]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01)
+mesh = ExtResource("8_32agq")
