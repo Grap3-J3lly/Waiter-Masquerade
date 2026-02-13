@@ -35,14 +35,14 @@ public partial class Mask : Node3D
 	
 	public override void _Ready()
 	{
-		Setup();
+		
 	}
 
 	public override void _Process(double delta)
 	{
 	}
 
-	private void Setup()
+	public void Setup()
 	{
 		GenerateLocalElements();
 		GenerateMask();

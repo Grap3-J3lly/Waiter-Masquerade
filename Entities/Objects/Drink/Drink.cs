@@ -11,7 +11,11 @@ public partial class Drink : Area3D
 	private Guest assignedGuest;
 
 	[Export]
-	private MeshInstance3D meshInstance;
+	private MeshInstance3D drinkMesh;
+	[Export]
+	private Node3D placard;
+	[Export]
+	private Node3D maskPlacardPlacement;
 	private Mesh localMesh;
 	[Export]
 	private Material drinkMaterial;
@@ -30,6 +34,7 @@ public partial class Drink : Area3D
     // --------------------------------
 	
 	public Guest AssignedGuest { get => assignedGuest; set => assignedGuest = value; }
+	public Node3D Placard { get => placard; }
 
 	// --------------------------------
 	//		STANDARD FUNCTIONS	
@@ -61,10 +66,10 @@ public partial class Drink : Area3D
 	{
 		despawnTimer = timeToDespawn;
 		localMaterial = (Material)drinkMaterial.Duplicate(deep: true);
-		localMesh = (Mesh)meshInstance.Mesh.Duplicate(deep: true);
+		localMesh = (Mesh)drinkMesh.Mesh.Duplicate(deep: true);
 
 		localMesh.Set("material", localMaterial);
-		meshInstance.Mesh = localMesh;
+		drinkMesh.Mesh = localMesh;
 		SelectDrinkOption();
 	}
 
@@ -83,6 +88,11 @@ public partial class Drink : Area3D
 		assignedGuest = guestOptions[guestIndex];
 		GD.Print($"Drink.cs: Picked Guest at Index {guestIndex}");
 		GD.Print($"Drink.cs: Assigned Guest: {assignedGuest}");
+
+		Mask guestMask = (Mask)assignedGuest.Mask.Duplicate();
+		maskPlacardPlacement.AddChild(guestMask);
+		guestMask.Position = Vector3.Zero;
+		guestMask.Scale = new Vector3(.25f, .25f, .25f);
 	}
 
 	// --------------------------------
@@ -91,6 +101,7 @@ public partial class Drink : Area3D
 
 	public void BeginDespawning()
 	{
+		placard.Visible = false;
 		startDespawn = true;
 		despawnTimer = timeToDespawn;
 	}

@@ -5,9 +5,14 @@ public partial class Guest : CharacterBody3D
 	[Export]
 	private Node3D hand;
 
-	public override void _PhysicsProcess(double delta)
+	[Export]
+	private Mask mask;
+
+	public Mask Mask { get => mask; }
+
+	public override void _Ready()
 	{
-		
+		mask.Setup();
 	}
 
 	public void TakeDrink(Drink drink)

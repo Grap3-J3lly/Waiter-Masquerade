@@ -133,6 +133,7 @@ public partial class PlayerController : CharacterBody3D
 	{
 		drink.Reparent(theHand, keepGlobalTransform:false);
 		drink.Position = Vector3.Zero;
+		drink.Rotation = new Vector3(0, 180, 0);
 		heldDrink = drink;
 		AudioManager.Instance.PlaySFX_Global(AudioManager.SFXType.ItemInteract_One);
 		gameManager.ResetDrinkTimer();
