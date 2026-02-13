@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://mwbm6usjuxel"]
 
-[ext_resource type="Script" uid="uid://b6rg3r7bvm8nx" path="res://Entities/Objects/Drinks/Drink.cs" id="1_tte36"]
-[ext_resource type="Material" uid="uid://ps2hyge4k36m" path="res://Entities/Objects/Drinks/drinkMaterial.tres" id="2_a3su6"]
+[ext_resource type="Script" uid="uid://b6rg3r7bvm8nx" path="res://Entities/Objects/Drink/Drink.cs" id="1_tte36"]
+[ext_resource type="Material" uid="uid://ps2hyge4k36m" path="res://Entities/Objects/Drink/drinkMaterial.tres" id="2_a3su6"]
 [ext_resource type="Texture2D" uid="uid://rw36d1iifuq3" path="res://Assets/Art/Drinks/Drink-Champ-N.png" id="2_w3jd4"]
 [ext_resource type="Texture2D" uid="uid://tou6iwr4t2in" path="res://Assets/Art/Drinks/Drink-Martini-N.png" id="3_a3su6"]
 [ext_resource type="Texture2D" uid="uid://crmjd431ehmy2" path="res://Assets/Art/Drinks/Drink-OldF-N.png" id="4_rgr0a"]
@@ -12,10 +12,11 @@ material = ExtResource("2_a3su6")
 [sub_resource type="BoxShape3D" id="BoxShape3D_vvh5c"]
 size = Vector3(1, 1, 0.3)
 
-[node name="Drink" type="Area3D" unique_id=556874129]
+[node name="Drink" type="Area3D" unique_id=556874129 node_paths=PackedStringArray("meshInstance")]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_tte36")
+meshInstance = NodePath("MeshInstance3D")
 drinkMaterial = ExtResource("2_a3su6")
 drinkOptions = Array[Texture2D]([ExtResource("2_w3jd4"), ExtResource("3_a3su6"), ExtResource("4_rgr0a")])
 

@@ -46,11 +46,19 @@ public partial class GameManager : Node
 
 	// Spawnable Objects that probably need to be moved to an ObjectPool 
 	[Export]
-	private Node objectPool;
+	private Node drinkParent;
 	[Export]
 	private Marker3D drinkSpawnLocation;
 	[Export]
 	private PackedScene drinkScene;
+
+	[Export]
+	private int drinkQueueSize = 1;
+	[Export]
+	private float drinkRespawnTime = 5f;
+	private float drinkTimer;
+
+
 	[Export]
 	private Array<Guest> guests = new Array<Guest>();
 
@@ -80,25 +88,15 @@ public partial class GameManager : Node
 	{
 		Instance = this;
 		timeRemaining = gameDuration;
+		ResetDrinkTimer();
 		CallDeferred("Setup");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		time = TimeSpan.FromSeconds(timeRemaining);
-		string formattedTime = string.Format("{0:D2}:{1:D2}", (int)time.TotalMinutes, time.Seconds);
-
-		if(uiManager != null && timeRemaining > 0 && !gameStopped && !gamePaused)
-		{
-			uiManager.TimerText = formattedTime;
-			timeRemaining -= (float)delta;
-
-			if(timeRemaining <= 0)
-			{
-				HandleGameOver();
-			}
-		}
+		HandleGameTimer((float)delta);
+		HandleDrinkTimer((float)delta);
 	}
 
 	// --------------------------------
@@ -117,17 +115,49 @@ public partial class GameManager : Node
 		SpawnDrink();
 	}
 
-	private void SpawnDrink()
-	{
-		Drink newDrink = drinkScene.Instantiate<Drink>();
-		objectPool.AddChild(newDrink);
-		newDrink.GlobalPosition = drinkSpawnLocation.GlobalPosition;
-		newDrink.PickGuest(guests);
-	}
-
 	// --------------------------------
 	//		GAME CONTROL FUNCTIONS	
     // --------------------------------
+
+	private void HandleGameTimer(float delta)
+	{
+		time = TimeSpan.FromSeconds(timeRemaining);
+		string formattedTime = string.Format("{0:D2}:{1:D2}", (int)time.TotalMinutes, time.Seconds);
+
+		if(uiManager != null && timeRemaining > 0 && !gameStopped && !gamePaused)
+		{
+			uiManager.TimerText = formattedTime;
+			timeRemaining -= delta;
+
+			if(timeRemaining <= 0)
+			{
+				HandleGameOver();
+			}
+		}
+	}
+
+	public void ResetDrinkTimer()
+	{
+		drinkTimer = drinkRespawnTime;
+	}
+
+	private void HandleDrinkTimer(float delta)
+	{
+		drinkTimer -= delta;
+		if(drinkTimer <= 0 && drinkParent.GetChildCount() < drinkQueueSize)
+		{
+			SpawnDrink();
+		}
+	}
+
+	private void SpawnDrink()
+	{
+		Drink newDrink = drinkScene.Instantiate<Drink>();
+		drinkParent.AddChild(newDrink);
+		newDrink.GlobalPosition = drinkSpawnLocation.GlobalPosition;
+		newDrink.PickGuest(guests);
+		ResetDrinkTimer();
+	}
 
 	public void IncreaseScore()
 	{

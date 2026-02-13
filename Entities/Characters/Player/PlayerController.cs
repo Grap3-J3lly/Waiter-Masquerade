@@ -135,6 +135,7 @@ public partial class PlayerController : CharacterBody3D
 		drink.Position = Vector3.Zero;
 		heldDrink = drink;
 		AudioManager.Instance.PlaySFX_Global(AudioManager.SFXType.ItemInteract_One);
+		gameManager.ResetDrinkTimer();
 	}
 
 	private void HandleGuestInteraction(Guest guest)
@@ -146,6 +147,7 @@ public partial class PlayerController : CharacterBody3D
 			guest.TakeDrink(heldDrink);
 			guesses = 0;
 			gameManager.IncreaseScore();
+			heldDrink = null;
 		}
 		else
 		{

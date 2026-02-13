@@ -14,5 +14,7 @@ public partial class Guest : CharacterBody3D
 	{
 		drink.Reparent(hand, keepGlobalTransform: false);
 		drink.Position = Vector3.Zero;
+		drink.DisableInteractions();
+		drink.BeginDespawning();
 	}
 }

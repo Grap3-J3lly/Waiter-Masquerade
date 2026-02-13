@@ -3,23 +3,27 @@
 [ext_resource type="PackedScene" uid="uid://bmixgc541np5r" path="res://Entities/Characters/Player/Player.tscn" id="1_7sx2d"]
 [ext_resource type="Script" uid="uid://bahf62o2x82d5" path="res://Scenes/GameManager.cs" id="1_robrs"]
 [ext_resource type="PackedScene" uid="uid://dr2u8j37486mx" path="res://Scenes/Levels/room-func-blockout.tscn" id="2_robrs"]
-[ext_resource type="PackedScene" uid="uid://mwbm6usjuxel" path="res://Entities/Objects/Drinks/default_drink.tscn" id="3_atwm2"]
+[ext_resource type="PackedScene" uid="uid://mwbm6usjuxel" path="res://Entities/Objects/Drink/default_drink.tscn" id="3_atwm2"]
 [ext_resource type="PackedScene" uid="uid://drvfaj1500oxc" path="res://Entities/Characters/Guests/guestTemplate.tscn" id="4_kvb1r"]
 [ext_resource type="PackedScene" uid="uid://3hsnqa8p3tys" path="res://UI/ui.tscn" id="6_atwm2"]
 
 [node name="Masquerade" type="Node3D" unique_id=1048129305]
 
-[node name="GameManager" type="Node" parent="." unique_id=1652663912 node_paths=PackedStringArray("player", "objectPool", "drinkSpawnLocation", "guests")]
+[node name="GameManager" type="Node" parent="." unique_id=1652663912 node_paths=PackedStringArray("player", "drinkParent", "drinkSpawnLocation", "guests")]
 script = ExtResource("1_robrs")
 player = NodePath("../Player")
 guessAttempts = 4
 gameDuration = 600.0
-objectPool = NodePath("../ObjectPool")
+drinkParent = NodePath("../ObjectPool/Drinks")
 drinkSpawnLocation = NodePath("../RoomFuncBlockout/Bar-Blockout/Bar/DrinkSpawnLocation")
 drinkScene = ExtResource("3_atwm2")
 guests = [NodePath("../GuestTemplate"), NodePath("../GuestTemplate2")]
 
 [node name="ObjectPool" type="Node" parent="." unique_id=267004237]
+
+[node name="Drinks" type="Node" parent="ObjectPool" unique_id=1122404969]
+
+[node name="Guests" type="Node" parent="ObjectPool" unique_id=1890438720]
 
 [node name="Player" parent="." unique_id=1471031441 instance=ExtResource("1_7sx2d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
