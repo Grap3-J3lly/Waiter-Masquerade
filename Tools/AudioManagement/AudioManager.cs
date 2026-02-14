@@ -8,9 +8,29 @@ public partial class AudioManager : Node
     //			VARIABLES	
     // --------------------------------
 
+    #region MUSIC
+    // Music 
+    [ExportGroup("Music")]
+    [Export]
+    private AudioStreamPlayer musicAudioPlayer;
+    private AudioStreamPlaybackPolyphonic musicPlaybackController;
+
+    public enum MusicType
+    {
+        Background,
+        InMenu
+    }
+
+    [Export]
+    public Dictionary<MusicType, AudioStream> musicLibrary = new Dictionary<MusicType, AudioStream>();
+    #endregion
+
+    #region SFX
+    // SFX 
+    [ExportGroup("SFX")]
     [Export]
     private AudioStreamPlayer sfxAudioPlayer;
-    private AudioStreamPlaybackPolyphonic playbackController;
+    private AudioStreamPlaybackPolyphonic sfxPlaybackController;
 
     public enum SFXType
     {
@@ -18,13 +38,55 @@ public partial class AudioManager : Node
         OnHit,
         OnDestroy,
         UI_Interact,
-        TriggerDefaultPowerup
+        TriggerDefaultPowerup,
+        ItemInteract_One,
+        ItemInteract_Two
     }
 
     [Export]
-    public Dictionary<SFXType, AudioStreamOggVorbis> sfxLibrary = new Dictionary<SFXType, AudioStreamOggVorbis>();
+    public Dictionary<SFXType, AudioStream> sfxLibrary = new Dictionary<SFXType, AudioStream>();
+    #endregion
 
-    private const int sfxAudioBusIndex = 1;
+    #region Player Audio
+    // Player Group
+    [ExportGroup("Player Audio")]
+    [Export]
+    private AudioStreamPlayer playerAudioPlayer;
+    private AudioStreamPlaybackPolyphonic playerPlaybackController;
+
+    public enum PlayerAudioType
+    {
+        Footstep,
+    }
+
+    [Export]
+    public Dictionary<PlayerAudioType, AudioStream> playerAudioLibrary = new Dictionary<PlayerAudioType, AudioStream>();
+    #endregion
+
+    #region Ambience
+    // Ambience Group
+    [ExportGroup("Ambience")]
+    [Export]
+    private AudioStreamPlayer ambienceAudioPlayer;
+    private AudioStreamPlaybackPolyphonic ambiencePlaybackController;
+
+    public enum AmbienceType
+    {
+        IdleChatter,
+    }
+
+    [Export]
+    public Dictionary<AmbienceType, AudioStream> ambienceLibrary = new Dictionary<AmbienceType, AudioStream>();
+    #endregion
+
+    // --------------------------------
+    //			CONSTANTS	
+    // --------------------------------
+    
+    private const int CONST_MusicAudioBusIndex = 1;
+    private const int CONST_SfxAudioBusIndex = 2;
+    private const int CONST_PlayerAudioBusIndex = 3;
+    private const int CONST_AmbienceAudioBusIndex = 4;
 
     // --------------------------------
     //			PROPERTIES	
@@ -53,40 +115,82 @@ public partial class AudioManager : Node
         AssignDefaultVolumeLevel();
 
         // Start AudioStreamPlayer, make it actively listen for new sounds added to the Polyphonic.
-        sfxAudioPlayer.Stream = new AudioStreamPolyphonic();
-        sfxAudioPlayer.Play();
-        playbackController = sfxAudioPlayer.GetStreamPlayback() as AudioStreamPlaybackPolyphonic;
+        // sfxAudioPlayer.Stream = new AudioStreamPolyphonic();
+        // sfxAudioPlayer.Play();
+        // sfxPlaybackController = sfxAudioPlayer.GetStreamPlayback() as AudioStreamPlaybackPolyphonic;
+
+        SetupPlaybackController(musicAudioPlayer, out musicPlaybackController);
+        SetupPlaybackController(sfxAudioPlayer, out sfxPlaybackController);
+        SetupPlaybackController(playerAudioPlayer, out playerPlaybackController);
+        SetupPlaybackController(ambienceAudioPlayer, out ambiencePlaybackController);
+    }
+
+    private void SetupPlaybackController(AudioStreamPlayer player, out AudioStreamPlaybackPolyphonic playbackController)
+    {
+        player.Stream = new AudioStreamPolyphonic();
+        player.Play();
+        playbackController = player.GetStreamPlayback() as AudioStreamPlaybackPolyphonic;
     }
 
     private void AssignDefaultVolumeLevel()
     {
+        double masterValue = (double)SaveSystem.GetDataItem("Settings", "masterVolume", defaultValue: 0.0f);
+        AudioServer.SetBusVolumeDb((int)SettingsManager.AudioSettings.Master, (float)Mathf.LinearToDb(masterValue));
+
+        double musicValue = (double)SaveSystem.GetDataItem("Settings", "musicVolume", defaultValue: 0.0f);
+        AudioServer.SetBusVolumeDb((int)SettingsManager.AudioSettings.Music, (float)Mathf.LinearToDb(musicValue));
+
         double sfxValue = (double)SaveSystem.GetDataItem("Settings", "sfxVolume", defaultValue: 0.0f);
-        AudioServer.SetBusVolumeDb(sfxAudioBusIndex, (float)Mathf.LinearToDb(sfxValue));
+        AudioServer.SetBusVolumeDb((int)SettingsManager.AudioSettings.SFX, (float)Mathf.LinearToDb(sfxValue));
+
+        // double playerValue = (double)SaveSystem.GetDataItem("Settings", "playerAudioVolume", defaultValue: 0.0f);
+        // AudioServer.SetBusVolumeDb(CONST_PlayerAudioBusIndex, (float)Mathf.LinearToDb(playerValue));
+
+        // double ambienceValue = (double)SaveSystem.GetDataItem("Settings", "ambienceVolume", defaultValue: 0.0f);
+        // AudioServer.SetBusVolumeDb(CONST_AmbienceAudioBusIndex, (float)Mathf.LinearToDb(ambienceValue));
     }
 
     // --------------------------------
     //		    AUDIO LOGIC	
     // --------------------------------
 
+    public void PlayMusic_Global(MusicType type)
+    {
+        GD.Print($"AudioManager.cs: Playing Music: {type}");
+        
+        if(musicAudioPlayer != null )
+        {
+            musicPlaybackController.PlayStream(musicLibrary[type]);
+        }
+    }
+
     public void PlaySFX_Global(SFXType type)
     {
         GD.Print($"AudioManager.cs: Playing SFX: {type}");
         
-        if(sfxAudioPlayer != null )//&& !audioPlayer.Playing)
+        if(sfxAudioPlayer != null )
         {
-            playbackController.PlayStream(sfxLibrary[type]);
+            sfxPlaybackController.PlayStream(sfxLibrary[type]);
         }
     }
 
-    //public void PlaySFX_2D(AudioStreamPlayer2D streamPlayer, SFXType type)
-    //{
-    //    GD.Print($"AudioManager.cs: Playing SFX: {type} on StreamPlayer: {streamPlayer}");
+    public void PlayPlayerAudio_Global(PlayerAudioType type)
+    {
+        GD.Print($"AudioManager.cs: Playing Player Audio: {type}");
+        
+        if(playerAudioPlayer != null )
+        {
+            playerPlaybackController.PlayStream(playerAudioLibrary[type]);
+        }
+    }
 
-    //    if (streamPlayer != null)
-    //    {            
-    //        streamPlayer.Stream = sfxLibrary[type];
-
-    //        streamPlayer.Play();
-    //    }
-    //}
+    public void PlayAmbience_Global(AmbienceType type)
+    {
+        GD.Print($"AudioManager.cs: Playing Ambience: {type}");
+        
+        if(ambienceAudioPlayer != null )
+        {
+            ambiencePlaybackController.PlayStream(ambienceLibrary[type]);
+        }
+    }
 }

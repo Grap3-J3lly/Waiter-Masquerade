@@ -69,6 +69,7 @@ public partial class SceneManager : Node
     private int homeSceneIndex = 0;
     private Array<Node> openScenes = new Array<Node>();
     private Node currentScene;
+    private int currentSceneIndex;
 
     // --------------------------------
     //			PROPERTIES	
@@ -76,6 +77,8 @@ public partial class SceneManager : Node
 
     public static SceneManager Instance { get; private set; }
     public int HomeSceneIndex { get => homeSceneIndex; }
+    public Node CurrentScene { get => currentScene; }
+    public int CurrentSceneIndex { get => currentSceneIndex; }    
 
     // --------------------------------
     //		STANDARD FUNCTIONS	
@@ -102,6 +105,7 @@ public partial class SceneManager : Node
     public static void LoadScene(int sceneIndex, bool unloadPreviousScene = true, int newSceneIndex = 0)
     {
         LoadScene(Instance.scenePaths[sceneIndex], unloadPreviousScene);
+        Instance.currentSceneIndex = sceneIndex;
     }
 
     private static void LoadScene(string path, bool unloadPreviousScenes, int newSceneIndex = 0)
@@ -149,5 +153,18 @@ public partial class SceneManager : Node
             scene.QueueFree();
         }
         Instance.openScenes.Clear();
+    }
+
+    public static void UnloadScene(Node scene)
+    {
+        if(!Instance.openScenes.Contains(scene))
+        {
+            GD.PrintErr($"SceneManager.cs: Unable to locate scene for unloading");
+            return;
+        }
+
+        int index = Instance.openScenes.IndexOf(scene);
+        Instance.openScenes.RemoveAt(index);
+        scene.QueueFree();
     }
 }

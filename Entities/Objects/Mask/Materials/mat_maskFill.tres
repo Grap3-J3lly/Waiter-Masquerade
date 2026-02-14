@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bo3txjjrfl2us"]
+
+[ext_resource type="Texture2D" uid="uid://bvkcxbyryy56d" path="res://Assets/Art/Masks/Mask-C-Inner.png" id="1_aqxgd"]
+
+[resource]
+transparency = 1
+albedo_color = Color(0.8156863, 0.2, 0.20392157, 1)
+albedo_texture = ExtResource("1_aqxgd")

@@ -1,32 +1,234 @@
 using Godot;
+using Godot.Collections;
 using System;
 
 public partial class GameManager : Node
 {
+	// --------------------------------
+    //			VARIABLES	
+    // --------------------------------
+
+	// Managers
 	public static GameManager Instance;
+	private MenuManager menuManager;
+	private UIManager uiManager;
+
+	// Player
 	[Export]
 	private PlayerController player;
 
+	// Game Rules
 	[Export]
 	private int guessAttempts = 3;
+	
+	[Export(PropertyHint.None, "suffix:s")]
+	private float gameDuration = 60f;
+	private float timeRemaining;
+	private TimeSpan time;
+	
+	private bool gamePaused = false;
+	private bool gameStopped = false;
+
+	public enum GuestMood
+	{
+		Satisfactory,
+		Adequate,
+		NeedsImprovement,
+		Dissatisfied
+	}
+	private GuestMood currentMood = GuestMood.Satisfactory; // Need to tie mood to guesses remaining
+	private int score = 0;
+
+	// Dynamic Menu
+
+	[Export]
+	private int finalScreenIndex = 3;
+
+	// Spawnable Objects that probably need to be moved to an ObjectPool 
+	[Export]
+	private Node drinkParent;
+	[Export]
+	private Marker3D drinkSpawnLocation;
+	[Export]
+	private PackedScene drinkScene;
+
+	[Export]
+	private int drinkQueueSize = 1;
+	[Export]
+	private float drinkRespawnTime = 5f;
+	private float drinkTimer;
+
+
+	[Export]
+	private Array<Guest> guests = new Array<Guest>();
+
+	// --------------------------------
+    //			CONSTANTS	
+    // --------------------------------
+
+	private const int CONST_DefaultStartScore = 0;
+	private const int CONST_ScoreIncreaseAmount = 100;
+
+	// --------------------------------
+    //			PROPERTIES	
+    // --------------------------------
+
+	public bool GamePaused { get => gamePaused; set => gamePaused = value; }
+	public bool GameStopped { get => gameStopped; set => gameStopped = value; }
+
+	public GuestMood CurrentMood { get => currentMood; }
+	public int Score { get => score; }
+
+	// --------------------------------
+    //		STANDARD FUNCTIONS	
+    // --------------------------------
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		Instance = this;
+		timeRemaining = gameDuration;
+		ResetDrinkTimer();
+		CallDeferred("Setup");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		DetermineGameOver();
+		HandleGameTimer((float)delta);
+		HandleDrinkTimer((float)delta);
 	}
 
-	public void DetermineGameOver()
+	// --------------------------------
+	//		SETUP FUNCTIONS	
+    // --------------------------------
+
+	private void Setup()
 	{
+		uiManager = UIManager.Instance;
+		menuManager = MenuManager.Instance;
+
+		uiManager.MoodText = AssignMood(player.Guesses).ToString();
+		score = CONST_DefaultStartScore;
+		uiManager.ScoreText = score.ToString();
+
+		SpawnDrink();
+	}
+
+	// --------------------------------
+	//		GAME CONTROL FUNCTIONS	
+    // --------------------------------
+
+	private void HandleGameTimer(float delta)
+	{
+		time = TimeSpan.FromSeconds(timeRemaining);
+		string formattedTime = string.Format("{0:D2}:{1:D2}", (int)time.TotalMinutes, time.Seconds);
+
+		if(uiManager != null && timeRemaining > 0 && !gameStopped && !gamePaused)
+		{
+			uiManager.TimerText = formattedTime;
+			timeRemaining -= delta;
+
+			if(timeRemaining <= 0)
+			{
+				HandleGameOver();
+			}
+		}
+	}
+
+	public void ResetDrinkTimer()
+	{
+		drinkTimer = drinkRespawnTime;
+	}
+
+	private void HandleDrinkTimer(float delta)
+	{
+		drinkTimer -= delta;
+		if(drinkTimer <= 0 && drinkParent.GetChildCount() < drinkQueueSize)
+		{
+			SpawnDrink();
+		}
+	}
+
+	private void SpawnDrink()
+	{
+		Drink newDrink = drinkScene.Instantiate<Drink>();
+		drinkParent.AddChild(newDrink);
+		newDrink.GlobalPosition = drinkSpawnLocation.GlobalPosition;
+		newDrink.PickGuest(guests);
+		ResetDrinkTimer();
+	}
+
+	public void IncreaseScore()
+	{
+		score += CONST_ScoreIncreaseAmount;
+		uiManager.ScoreText = score.ToString();
+	}
+
+	private GuestMood AssignMood(int guessesMade)
+	{
+		float fTotalGuesses = (float)guessAttempts;
+		float fGuessesMade = (float)guessesMade;
+		float ratio = fGuessesMade / fTotalGuesses;
+
+		GD.Print($"GameManager.cs: Ratio of Guesses Made to Total Allowed: {ratio}");
+
+		GuestMood newMood = GuestMood.Dissatisfied;
+
+		if(ratio < 1.0f)
+		{
+			newMood = GuestMood.Dissatisfied;
+		}
+		if(ratio < .75f)
+		{
+			newMood = GuestMood.NeedsImprovement;
+		}
+		if(ratio < .5f)
+		{
+			newMood = GuestMood.Adequate;
+		}
+		if(ratio < .25f)
+		{
+			newMood = GuestMood.Satisfactory;
+		}
+
+		return newMood;
+	}
+
+	public void HandleGameOver()
+	{
+		bool gameWon = false;
 		if(player.Guesses >= guessAttempts)
 		{
-			GD.Print($"GameManager.cs: Game Over. You Lose.");
+			GD.Print($"GameManager.cs: Game Over. You Lose");
+			gameStopped = true;
+		}
+		else if(timeRemaining <= 0)
+		{
+			GD.Print($"GameManager.cs: Game Over. You Win");
+			gameStopped = true;
+			gameWon = true;
+		}
+		else
+		{
+			// GD.Print($"GameManager.cs: Game Not Over Yet");
+			uiManager.MoodText = AssignMood(player.Guesses).ToString();
+			return;
+		}
+		menuManager.OpenWinLosePauseScreen(gameStopped, gameWon);
+	}
+
+	public void Pause(bool pausingGame)
+	{
+		gamePaused = pausingGame;
+		if(gamePaused)
+		{
+			menuManager.OpenWinLosePauseScreen(gameStopped);
+		}
+		else
+		{
+			Input.MouseMode = Input.MouseMode == Input.MouseModeEnum.Captured ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
+			menuManager.CloseMenus();
 		}
 	}
 }
