@@ -1,13 +1,19 @@
 [gd_scene format=3 uid="uid://3hsnqa8p3tys"]
 
 [ext_resource type="Script" uid="uid://dyv77qjmcqdnm" path="res://UI/UIManager.cs" id="1_2fwl4"]
+[ext_resource type="Texture2D" uid="uid://ofmj7nlfhsd4" path="res://Assets/Art/UI/UI-Mood-NS.png" id="2_3sbvi"]
+[ext_resource type="Texture2D" uid="uid://o013ikkda7ew" path="res://Assets/Art/UI/UI-Mood-NI.png" id="3_nm1m0"]
+[ext_resource type="Texture2D" uid="uid://cl8sop7k5xkm7" path="res://Assets/Art/UI/UI-Mood-A.png" id="4_c7tqi"]
+[ext_resource type="Texture2D" uid="uid://4txaxcesf2pd" path="res://Assets/Art/UI/UI-Mood-S.png" id="5_cbfhl"]
 
-[node name="UI Canvas" type="CanvasLayer" unique_id=2014262819 node_paths=PackedStringArray("scoreText", "timerText", "moodText")]
+[node name="UI Canvas" type="CanvasLayer" unique_id=2014262819 node_paths=PackedStringArray("scoreText", "timerText", "moodText", "moodImage")]
 layer = 5
 script = ExtResource("1_2fwl4")
 scoreText = NodePath("UI Root/Header/ScoreSection/ScoreValue")
 timerText = NodePath("UI Root/Header/TimerText")
-moodText = NodePath("UI Root/Header/MoodText")
+moodText = NodePath("UI Root/Header/MoodArea/MoodText")
+moodImage = NodePath("UI Root/Header/MoodArea/MoodImage")
+moodImages = Array[Texture2D]([ExtResource("5_cbfhl"), ExtResource("4_c7tqi"), ExtResource("3_nm1m0"), ExtResource("2_3sbvi")])
 
 [node name="UI Root" type="Control" parent="." unique_id=763066584]
 layout_mode = 3
@@ -60,17 +66,45 @@ text = "10:00"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MoodText" type="RichTextLabel" parent="UI Root/Header" unique_id=1738203799]
+[node name="MoodArea" type="Control" parent="UI Root/Header" unique_id=1880398517]
+custom_minimum_size = Vector2(275, 150)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="MoodText" type="RichTextLabel" parent="UI Root/Header/MoodArea" unique_id=1738203799]
 custom_minimum_size = Vector2(275, 40)
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -287.0
-offset_right = -11.999268
+offset_left = -275.0
+offset_right = 0.0007324219
 offset_bottom = 40.0
 grow_horizontal = 0
 theme_override_font_sizes/normal_font_size = 24
 text = "NEEDS IMPROVEMENT"
-horizontal_alignment = 2
+horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="MoodImage" type="TextureRect" parent="UI Root/Header/MoodArea" unique_id=1961838528]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_3sbvi")
+expand_mode = 2
+stretch_mode = 4

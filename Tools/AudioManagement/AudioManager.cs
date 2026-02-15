@@ -114,11 +114,6 @@ public partial class AudioManager : Node
     {
         AssignDefaultVolumeLevel();
 
-        // Start AudioStreamPlayer, make it actively listen for new sounds added to the Polyphonic.
-        // sfxAudioPlayer.Stream = new AudioStreamPolyphonic();
-        // sfxAudioPlayer.Play();
-        // sfxPlaybackController = sfxAudioPlayer.GetStreamPlayback() as AudioStreamPlaybackPolyphonic;
-
         SetupPlaybackController(musicAudioPlayer, out musicPlaybackController);
         SetupPlaybackController(sfxAudioPlayer, out sfxPlaybackController);
         SetupPlaybackController(playerAudioPlayer, out playerPlaybackController);
@@ -142,12 +137,6 @@ public partial class AudioManager : Node
 
         double sfxValue = (double)SaveSystem.GetDataItem("Settings", "sfxVolume", defaultValue: 0.0f);
         AudioServer.SetBusVolumeDb((int)SettingsManager.AudioSettings.SFX, (float)Mathf.LinearToDb(sfxValue));
-
-        // double playerValue = (double)SaveSystem.GetDataItem("Settings", "playerAudioVolume", defaultValue: 0.0f);
-        // AudioServer.SetBusVolumeDb(CONST_PlayerAudioBusIndex, (float)Mathf.LinearToDb(playerValue));
-
-        // double ambienceValue = (double)SaveSystem.GetDataItem("Settings", "ambienceVolume", defaultValue: 0.0f);
-        // AudioServer.SetBusVolumeDb(CONST_AmbienceAudioBusIndex, (float)Mathf.LinearToDb(ambienceValue));
     }
 
     // --------------------------------
