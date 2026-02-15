@@ -33,7 +33,7 @@ public partial class GameManager : Node
 	{
 		Satisfactory,
 		Adequate,
-		NeedsImprovement,
+		Needs_Improvement,
 		Dissatisfied
 	}
 	private GuestMood currentMood = GuestMood.Satisfactory; // Need to tie mood to guesses remaining
@@ -108,7 +108,7 @@ public partial class GameManager : Node
 		uiManager = UIManager.Instance;
 		menuManager = MenuManager.Instance;
 
-		uiManager.MoodText = AssignMood(player.Guesses).ToString();
+		AssignMood(player.Guesses);
 		score = CONST_DefaultStartScore;
 		uiManager.ScoreText = score.ToString();
 
@@ -165,7 +165,7 @@ public partial class GameManager : Node
 		uiManager.ScoreText = score.ToString();
 	}
 
-	private GuestMood AssignMood(int guessesMade)
+	private void AssignMood(int guessesMade)
 	{
 		float fTotalGuesses = (float)guessAttempts;
 		float fGuessesMade = (float)guessesMade;
@@ -181,7 +181,7 @@ public partial class GameManager : Node
 		}
 		if(ratio < .75f)
 		{
-			newMood = GuestMood.NeedsImprovement;
+			newMood = GuestMood.Needs_Improvement;
 		}
 		if(ratio < .5f)
 		{
@@ -192,7 +192,8 @@ public partial class GameManager : Node
 			newMood = GuestMood.Satisfactory;
 		}
 
-		return newMood;
+		currentMood = newMood;
+		uiManager.UpdateMoodUI(currentMood);
 	}
 
 	public void HandleGameOver()
@@ -212,7 +213,7 @@ public partial class GameManager : Node
 		else
 		{
 			// GD.Print($"GameManager.cs: Game Not Over Yet");
-			uiManager.MoodText = AssignMood(player.Guesses).ToString();
+			AssignMood(player.Guesses);
 			return;
 		}
 		menuManager.OpenWinLosePauseScreen(gameStopped, gameWon);

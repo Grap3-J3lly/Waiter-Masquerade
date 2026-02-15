@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 
 public partial class UIManager : CanvasLayer
@@ -11,6 +12,12 @@ public partial class UIManager : CanvasLayer
 	private RichTextLabel timerText;
 	[Export]
 	private RichTextLabel moodText;
+
+	[Export]
+	private TextureRect moodImage;
+
+	[Export]
+	private Array<Texture2D> moodImages = new Array<Texture2D>();
 
 	public string ScoreText { get => scoreText.Text; set => scoreText.Text = value; }
 	public string TimerText { get => timerText.Text; set => timerText.Text = value; }
@@ -28,5 +35,9 @@ public partial class UIManager : CanvasLayer
 		
 	}
 
-	
+	public void UpdateMoodUI(GameManager.GuestMood currentMood)
+	{
+		MoodText = currentMood.ToString();
+		moodImage.Texture = moodImages[(int)currentMood];
+	}
 }

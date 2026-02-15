@@ -8,12 +8,14 @@
 
 [sub_resource type="QuadMesh" id="QuadMesh_jnlp7"]
 material = ExtResource("2_a3su6")
+size = Vector2(0.5, 0.5)
+center_offset = Vector3(0, -0.25, 0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vvh5c"]
 size = Vector3(1, 1, 0.3)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_mw1j3"]
-viewport_path = NodePath("SubViewport")
+viewport_path = NodePath("Placard/PlacardMesh_Front/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mw1j3"]
 resource_local_to_scene = true
@@ -25,18 +27,18 @@ resource_local_to_scene = true
 lightmap_size_hint = Vector2i(7, 7)
 material = SubResource("StandardMaterial3D_mw1j3")
 
+[sub_resource type="Gradient" id="Gradient_8oify"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kh8pi"]
+gradient = SubResource("Gradient_8oify")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8oify"]
 cull_mode = 2
 
 [sub_resource type="QuadMesh" id="QuadMesh_mw1j3"]
 lightmap_size_hint = Vector2i(7, 7)
 material = SubResource("StandardMaterial3D_8oify")
-
-[sub_resource type="Gradient" id="Gradient_8oify"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_kh8pi"]
-gradient = SubResource("Gradient_8oify")
 
 [node name="Drink" type="Area3D" unique_id=556874129 node_paths=PackedStringArray("drinkMesh", "placard", "maskPlacardPlacement")]
 collision_layer = 2
@@ -57,25 +59,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_vvh5c")
 
 [node name="Placard" type="Node3D" parent="." unique_id=23193996]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.15739074, 0.13929613, -0.055334687)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.28063965, 0.13929613, -0.055334687)
 
 [node name="PlacardMesh_Front" type="MeshInstance3D" parent="Placard" unique_id=1543595953]
 transform = Transform3D(0.25, 0, 0, 0, 0.17677668, 0.17677668, 0, -0.17677668, 0.17677668, 0, 0, 0.05)
 mesh = SubResource("QuadMesh_8oify")
 
-[node name="PlacardMesh_Back" type="MeshInstance3D" parent="Placard" unique_id=1528804756]
-transform = Transform3D(-0.25, -2.669254e-08, 2.6692534e-08, 0, 0.17677666, 0.17677669, -3.774895e-08, 0.17677669, -0.17677666, 0, 0, -0.125)
-mesh = SubResource("QuadMesh_mw1j3")
-
-[node name="MaskPlacement" type="Node3D" parent="Placard" unique_id=1745254022]
-transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, -2.9802322e-08, -0.034127638, 0.09068349)
-
-[node name="SubViewport" type="SubViewport" parent="." unique_id=1933046004]
+[node name="SubViewport" type="SubViewport" parent="Placard/PlacardMesh_Front" unique_id=1933046004]
 size = Vector2i(256, 256)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="SubViewport" unique_id=1369007608]
+[node name="CanvasLayer" type="CanvasLayer" parent="Placard/PlacardMesh_Front/SubViewport" unique_id=1369007608]
 
-[node name="Control" type="Control" parent="SubViewport/CanvasLayer" unique_id=962413277]
+[node name="Control" type="Control" parent="Placard/PlacardMesh_Front/SubViewport/CanvasLayer" unique_id=962413277]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -83,7 +78,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background" type="TextureRect" parent="SubViewport/CanvasLayer/Control" unique_id=208346809]
+[node name="Background" type="TextureRect" parent="Placard/PlacardMesh_Front/SubViewport/CanvasLayer/Control" unique_id=208346809]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -92,7 +87,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_kh8pi")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="SubViewport/CanvasLayer/Control" unique_id=2099310595]
+[node name="RichTextLabel" type="RichTextLabel" parent="Placard/PlacardMesh_Front/SubViewport/CanvasLayer/Control" unique_id=2099310595]
 custom_minimum_size = Vector2(150, 70)
 layout_mode = 1
 anchors_preset = 5
@@ -107,3 +102,10 @@ theme_override_font_sizes/normal_font_size = 40
 text = "Guest:"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PlacardMesh_Back" type="MeshInstance3D" parent="Placard" unique_id=1528804756]
+transform = Transform3D(-0.25, -2.669254e-08, 2.6692534e-08, 0, 0.17677666, 0.17677669, -3.774895e-08, 0.17677669, -0.17677666, 0, 0, -0.125)
+mesh = SubResource("QuadMesh_mw1j3")
+
+[node name="MaskPlacement" type="Node3D" parent="Placard" unique_id=1745254022]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, -2.9802322e-08, -0.034127638, 0.09068349)
