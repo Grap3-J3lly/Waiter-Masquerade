@@ -46,9 +46,9 @@ public partial class PlayerController : CharacterBody3D
 		
 	}
 
-    public override void _Input(InputEvent @event)
-    {
-        base._Input(@event);
+	public override void _Input(InputEvent @event)
+	{
+		base._Input(@event);
 		if(@event.IsActionPressed("ui_cancel"))
 		{
 			// Input.MouseMode = Input.MouseMode == Input.MouseModeEnum.Captured ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
@@ -58,7 +58,7 @@ public partial class PlayerController : CharacterBody3D
 				gameManager.Pause(!gameManager.GamePaused);
 			}
 		}
-    }
+	}
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
