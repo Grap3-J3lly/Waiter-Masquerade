@@ -146,7 +146,7 @@ public partial class PlayerController : CharacterBody3D
 		if(heldDrink.AssignedGuest == guest)
 		{
 			guest.TakeDrink(heldDrink);
-			guesses = 0;
+			guesses--;
 			gameManager.IncreaseScore();
 			heldDrink = null;
 		}
