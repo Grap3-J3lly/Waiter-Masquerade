@@ -17,7 +17,7 @@ gameDuration = 600.0
 drinkParent = NodePath("../ObjectPool/Drinks")
 drinkSpawnLocation = NodePath("../RoomFuncBlockout/Bar-Blockout/Bar/DrinkSpawnLocation")
 drinkScene = ExtResource("3_atwm2")
-guests = [NodePath("../GuestTemplate"), NodePath("../GuestTemplate2")]
+guests = [NodePath("../GuestTemplate"), NodePath("../GuestTemplate2"), NodePath("../GuestTemplate3"), NodePath("../GuestTemplate4"), NodePath("../GuestTemplate5"), NodePath("../GuestTemplate6"), NodePath("../GuestTemplate7"), NodePath("../GuestTemplate8"), NodePath("../GuestTemplate9"), NodePath("../GuestTemplate10")]
 
 [node name="ObjectPool" type="Node" parent="." unique_id=267004237]
 
@@ -36,8 +36,35 @@ transform = Transform3D(0.8082469, 0, 0.58884376, 0, 1, 0, -0.58884376, 0, 0.808
 [node name="GuestTemplate2" parent="." unique_id=1361228376 instance=ExtResource("4_kvb1r")]
 transform = Transform3D(0.1925734, 0, 0.9812826, 0, 1, 0, -0.9812826, 0, 0.1925734, -3.4428153, 0, 1.3181037)
 
-[node name="Label3D" parent="GuestTemplate2" index="2" unique_id=1965826131]
-text = ""
+[node name="GuestTemplate3" parent="." unique_id=2142072675 instance=ExtResource("4_kvb1r")]
+transform = Transform3D(0.1925734, 0, 0.9812826, 0, 1, 0, -0.9812826, 0, 0.1925734, 1.089838, 0, -6.2626815)
+
+[node name="GuestTemplate4" parent="." unique_id=870937294 instance=ExtResource("4_kvb1r")]
+transform = Transform3D(0.78877306, 0, -0.6146846, 0, 1, 0, 0.6146846, 0, 0.78877306, 2.8258965, -9.536743e-07, -6.9779143)
+
+[node name="GuestTemplate5" parent="." unique_id=2135421703 instance=ExtResource("4_kvb1r")]
+transform = Transform3D(0.1925734, 0, 0.9812826, 0, 1, 0, -0.9812826, 0, 0.1925734, -5.3301945, -1.9073486e-06, -9.428653)
+
+[node name="Body" parent="GuestTemplate5" index="0" unique_id=1461473031]
+transform = Transform3D(0.9983044, 0, 0.05820872, 0, 1, 0, -0.05820872, 0, 0.9983044, 0, 1, 0)
+
+[node name="GuestTemplate6" parent="." unique_id=713521251 instance=ExtResource("4_kvb1r")]
+transform = Transform3D(0.1925734, 0, 0.9812826, 0, 1, 0, -0.9812826, 0, 0.1925734, -4.1383862, -1.9073486e-06, -10.111531)
+
+[node name="Body" parent="GuestTemplate6" index="0" unique_id=1461473031]
+transform = Transform3D(0.13035311, 0, -0.99146765, 0, 1, 0, 0.99146765, 0, 0.13035311, 0, 1, 0)
+
+[node name="GuestTemplate7" parent="." unique_id=531605397 instance=ExtResource("4_kvb1r")]
+transform = Transform3D(0.031253878, 0, 0.9995116, 0, 1, 0, -0.9995116, 0, 0.031253878, -2.0832717, -3.0994415e-06, 10.215324)
+
+[node name="GuestTemplate8" parent="." unique_id=1659738042 instance=ExtResource("4_kvb1r")]
+transform = Transform3D(0.1805192, 0, 0.9835715, 0, 1, 0, -0.9835715, 0, 0.1805192, -1.9482384, -2.6226044e-06, 8.863729)
+
+[node name="GuestTemplate9" parent="." unique_id=342030089 instance=ExtResource("4_kvb1r")]
+transform = Transform3D(0.7930026, 0, 0.60921824, 0, 1, 0, -0.60921824, 0, 0.7930026, 3.8327167, -2.861023e-06, 0.94244313)
+
+[node name="GuestTemplate10" parent="." unique_id=775095408 instance=ExtResource("4_kvb1r")]
+transform = Transform3D(0.16134542, 0, -0.986898, 0, 1, 0, 0.986898, 0, 0.16134542, 5.856026, -2.861023e-06, 2.2370634)
 
 [node name="UI" parent="." unique_id=2014262819 instance=ExtResource("6_atwm2")]
 
@@ -46,3 +73,19 @@ text = ""
 [editable path="GuestTemplate/Body/Mask"]
 [editable path="GuestTemplate2"]
 [editable path="GuestTemplate2/Body/Mask"]
+[editable path="GuestTemplate3"]
+[editable path="GuestTemplate3/Body/Mask"]
+[editable path="GuestTemplate4"]
+[editable path="GuestTemplate4/Body/Mask"]
+[editable path="GuestTemplate5"]
+[editable path="GuestTemplate5/Body/Mask"]
+[editable path="GuestTemplate6"]
+[editable path="GuestTemplate6/Body/Mask"]
+[editable path="GuestTemplate7"]
+[editable path="GuestTemplate7/Body/Mask"]
+[editable path="GuestTemplate8"]
+[editable path="GuestTemplate8/Body/Mask"]
+[editable path="GuestTemplate9"]
+[editable path="GuestTemplate9/Body/Mask"]
+[editable path="GuestTemplate10"]
+[editable path="GuestTemplate10/Body/Mask"]
