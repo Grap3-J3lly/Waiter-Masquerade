@@ -19,6 +19,7 @@ public partial class PlayerController : CharacterBody3D
 	private Node3D theHand;
 	private Drink heldDrink;
 	private int guesses = 0;
+	private Guest previousGuest;
 
 	// --------------------------------
 	//		    PROPERTIES	
@@ -77,6 +78,23 @@ public partial class PlayerController : CharacterBody3D
 
 	private void HandleInteractions()
 	{
+		if(previousGuest != null)
+		{
+			previousGuest.ToggleOutline(false);
+		}
+		
+		if(raycast.IsColliding())
+		{
+			GodotObject raycastObject = raycast.GetCollider();
+			Guest potentialGuest = raycastObject as Guest;
+
+			if(potentialGuest != null)
+			{
+				potentialGuest.ToggleOutline(true);
+				previousGuest = potentialGuest;
+			}
+		}
+
 		if(Input.IsActionJustPressed("primary") && raycast.IsColliding())
 		{
 			GodotObject raycastObject = raycast.GetCollider();
@@ -131,9 +149,13 @@ public partial class PlayerController : CharacterBody3D
 
 	private void HandleDrinkInteraction(Drink drink)
 	{
+		if(heldDrink != null)
+		{
+			return;
+		}
 		drink.Reparent(theHand, keepGlobalTransform:false);
 		drink.Position = Vector3.Zero;
-		drink.Rotation = new Vector3(0, 180, 0);
+		drink.RotationDegrees = new Vector3(0, 180, 0);
 		heldDrink = drink;
 		AudioManager.Instance.PlaySFX_Global(AudioManager.SFXType.ItemInteract_One);
 		gameManager.ResetDrinkTimer();

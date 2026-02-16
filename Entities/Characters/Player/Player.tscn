@@ -1,8 +1,29 @@
 [gd_scene format=3 uid="uid://bmixgc541np5r"]
 
 [ext_resource type="Script" uid="uid://c5dmsytjk0rxo" path="res://Entities/Characters/Player/PlayerController.cs" id="1_m5olb"]
+[ext_resource type="Texture2D" uid="uid://dwenfkys7mlvi" path="res://Assets/Art/UI/UI-Platter-Only.png" id="2_vas0p"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pq8q7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e4hhw"]
+transparency = 1
+albedo_texture = ExtResource("2_vas0p")
+billboard_mode = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_4qj25"]
+material = SubResource("StandardMaterial3D_e4hhw")
+size = Vector2(1.75, 1.5)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_vas0p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vas0p"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_e4hhw"]
+material = SubResource("StandardMaterial3D_vas0p")
+height = 2.375
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_vas0p"]
 
 [node name="Player" type="CharacterBody3D" unique_id=1471031441 node_paths=PackedStringArray("mainCam", "raycast", "theHand")]
 script = ExtResource("1_m5olb")
@@ -20,9 +41,34 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 current = true
 
 [node name="RayCast3D" type="RayCast3D" parent="HeadPivot/Camera3D" unique_id=1863945198]
-target_position = Vector3(0, 0, -5)
+target_position = Vector3(0, 0, -3)
 collision_mask = 2
 collide_with_areas = true
 
 [node name="TheHand" type="Node3D" parent="." unique_id=253058705]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6608798, 0, -0.81972826)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6608798, 0, -0.7984234)
+
+[node name="Platter" type="MeshInstance3D" parent="TheHand" unique_id=1565342079]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07, 0.09309453, -0.43198693)
+mesh = SubResource("QuadMesh_4qj25")
+
+[node name="Arm" type="Node3D" parent="TheHand" unique_id=1744669807]
+transform = Transform3D(0.96136266, 0, 0.27528504, 0, 1, 0, -0.27528504, 0, 0.96136266, -0.085164845, -0.6649999, -0.1392585)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TheHand/Arm" unique_id=2079290904]
+transform = Transform3D(0.25, 0, 0, 0, -4.371139e-08, -0.25, 0, 1, -1.0927847e-08, 3.7252903e-09, -5.5588427e-09, 0.45257372)
+mesh = SubResource("CylinderMesh_vas0p")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="TheHand/Arm" unique_id=590297454]
+transform = Transform3D(0.26, 0, 0, 0, -4.371139e-08, -0.26, 0, 1, -1.13649605e-08, -3.8743018e-09, -7.84059e-09, 0.56619143)
+mesh = SubResource("CapsuleMesh_e4hhw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1927781558]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.4497765, 0.7904156)
+visible = false
+mesh = SubResource("PlaneMesh_vas0p")
+
+[node name="Label3D" type="Label3D" parent="." unique_id=1880001906]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.89587533, 0)
+billboard = 1
+text = "What are you looking at"
