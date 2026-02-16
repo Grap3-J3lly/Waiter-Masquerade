@@ -15,6 +15,8 @@ public partial class Guest : CharacterBody3D
 
 	[Export]
 	private MeshInstance3D bodyMesh;
+	[Export]
+	private MeshInstance3D outlineMesh;
 
 	public enum CloakElements
 	{
@@ -30,6 +32,7 @@ public partial class Guest : CharacterBody3D
     // --------------------------------
 
 	public Mask Mask { get => mask; }
+	
 
 	// --------------------------------
 	//		STANDARD FUNCTIONS	
@@ -39,6 +42,7 @@ public partial class Guest : CharacterBody3D
 	{
 		mask.Setup();
 		AssignCloak();
+		ToggleOutline(false);
 	}
 
 	public void TakeDrink(Drink drink)
@@ -54,12 +58,23 @@ public partial class Guest : CharacterBody3D
 		Random rand = new Random();
 		int cloakIndex = rand.Next(cloaks[(CloakElements)0].Count);
 
-		Mesh localMesh = (Mesh)bodyMesh.Mesh.Duplicate();
-		Material localMaterial = (Material)((Material)localMesh.Get("material")).Duplicate();
+		Mesh localCloakMesh = (Mesh)bodyMesh.Mesh.Duplicate();
+		Mesh localOutlineMesh = (Mesh)outlineMesh.Mesh.Duplicate();
+		Material localCloakMaterial = (Material)((Material)localCloakMesh.Get("material")).Duplicate();
+		Material localOutlineMaterial = (Material)((Material)localOutlineMesh.Get("material")).Duplicate();
 		
-		localMaterial.Set("shader_parameter/front_texture", cloaks[CloakElements.Front][cloakIndex]);
-		localMaterial.Set("shader_parameter/back_texture", cloaks[CloakElements.Back][cloakIndex]);
-		localMesh.Set("material", localMaterial);
-		bodyMesh.Mesh = localMesh;
+		localCloakMaterial.Set("shader_parameter/front_texture", cloaks[CloakElements.Front][cloakIndex]);
+		localCloakMaterial.Set("shader_parameter/back_texture", cloaks[CloakElements.Back][cloakIndex]);
+		localCloakMesh.Set("material", localCloakMaterial);
+		bodyMesh.Mesh = localCloakMesh;
+
+		localOutlineMaterial.Set("shader_parameter/outline_texture", cloaks[CloakElements.Outline][cloakIndex]);
+		localOutlineMesh.Set("material", localOutlineMaterial);
+		outlineMesh.Mesh = localOutlineMesh;
+	}
+
+	public void ToggleOutline(bool isVisible)
+	{
+		outlineMesh.Visible = isVisible;
 	}
 }

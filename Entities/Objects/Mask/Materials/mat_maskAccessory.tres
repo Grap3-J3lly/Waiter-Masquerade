@@ -3,5 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://c84guao20xdrd" path="res://Assets/Art/Masks/Acess-Mask-Jewel.png" id="1_t0js5"]
 
 [resource]
+render_priority = 5
 transparency = 1
 albedo_texture = ExtResource("1_t0js5")

@@ -3,5 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://di8we2o3ibdtb" path="res://Assets/Art/Masks/Emb-Mask-Dots.png" id="1_r4lfb"]
 
 [resource]
+render_priority = 5
 transparency = 1
 albedo_texture = ExtResource("1_r4lfb")
