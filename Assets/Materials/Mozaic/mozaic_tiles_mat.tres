@@ -1,0 +1,18 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b0n2g8ni6a82w"]
+
+[ext_resource type="Texture2D" uid="uid://dvyymf72wvl48" path="res://Assets/Materials/Mozaic/Tiles131_1K-JPG_Color.jpg" id="1_pmq1i"]
+[ext_resource type="Texture2D" uid="uid://pk7si0drrul5" path="res://Assets/Materials/Mozaic/Tiles131_1K-JPG_AmbientOcclusion.jpg" id="2_ilcel"]
+[ext_resource type="Texture2D" uid="uid://cwiotd4n6hnd6" path="res://Assets/Materials/Mozaic/Tiles131_1K-JPG_Displacement.jpg" id="3_7q1w2"]
+[ext_resource type="Texture2D" uid="uid://cum8mv08oayw8" path="res://Assets/Materials/Mozaic/Tiles131_1K-JPG_NormalGL.jpg" id="4_a0k6s"]
+[ext_resource type="Texture2D" uid="uid://cnhdjlvlgakm" path="res://Assets/Materials/Mozaic/Tiles131_1K-JPG_Roughness.jpg" id="5_6s0xm"]
+
+[resource]
+albedo_texture = ExtResource("1_pmq1i")
+roughness_texture = ExtResource("5_6s0xm")
+normal_enabled = true
+normal_texture = ExtResource("4_a0k6s")
+ao_enabled = true
+ao_texture = ExtResource("2_ilcel")
+heightmap_enabled = true
+heightmap_texture = ExtResource("3_7q1w2")
+uv1_scale = Vector3(5, 15, 1)
