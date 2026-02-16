@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 public partial class PlayerController : CharacterBody3D
@@ -6,6 +7,7 @@ public partial class PlayerController : CharacterBody3D
 	//		    VARIABLES	
 	// --------------------------------
 	private GameManager gameManager;
+	private AudioManager audioManager;
 
 	[Export]
 	public float speed = 5.0f;
@@ -19,6 +21,9 @@ public partial class PlayerController : CharacterBody3D
 	private Node3D theHand;
 	private Drink heldDrink;
 	private int guesses = 0;
+	private bool isFootstepStreamPlaying;
+	private Random random;
+	private Guest previousGuest;
 
 	// --------------------------------
 	//		    PROPERTIES	
@@ -32,7 +37,9 @@ public partial class PlayerController : CharacterBody3D
 	public override void _Ready()
 	{
 		gameManager = GameManager.Instance;
+		audioManager = AudioManager.Instance;
 		Input.MouseMode = Input.MouseModeEnum.Captured;
+		random = new Random();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -46,9 +53,9 @@ public partial class PlayerController : CharacterBody3D
 		
 	}
 
-    public override void _Input(InputEvent @event)
-    {
-        base._Input(@event);
+	public override void _Input(InputEvent @event)
+	{
+		base._Input(@event);
 		if(@event.IsActionPressed("ui_cancel"))
 		{
 			// Input.MouseMode = Input.MouseMode == Input.MouseModeEnum.Captured ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
@@ -58,7 +65,7 @@ public partial class PlayerController : CharacterBody3D
 				gameManager.Pause(!gameManager.GamePaused);
 			}
 		}
-    }
+	}
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
@@ -77,6 +84,23 @@ public partial class PlayerController : CharacterBody3D
 
 	private void HandleInteractions()
 	{
+		if(previousGuest != null)
+		{
+			previousGuest.ToggleOutline(false);
+		}
+		
+		if(raycast.IsColliding())
+		{
+			GodotObject raycastObject = raycast.GetCollider();
+			Guest potentialGuest = raycastObject as Guest;
+
+			if(potentialGuest != null)
+			{
+				potentialGuest.ToggleOutline(true);
+				previousGuest = potentialGuest;
+			}
+		}
+
 		if(Input.IsActionJustPressed("primary") && raycast.IsColliding())
 		{
 			GodotObject raycastObject = raycast.GetCollider();
@@ -123,6 +147,22 @@ public partial class PlayerController : CharacterBody3D
 
 		Velocity = velocity;
 		MoveAndSlide();
+
+		////audio stream handling
+		//if player is moving and footsteps are not playing
+		if(velocity != Vector3.Zero && isFootstepStreamPlaying == false)
+		{
+			//start playing footsteps
+			audioManager.PlayPlayerAudio_Global(AudioManager.PlayerAudioType.Footstep);
+			isFootstepStreamPlaying = true;
+		}
+		//if player is not moving and the audio is playing
+		else if (velocity == Vector3.Zero && isFootstepStreamPlaying == true)
+		{
+			//stop playing footsteps
+			audioManager.StopPlayerAudio_Global(AudioManager.PlayerAudioType.Footstep);
+			isFootstepStreamPlaying = false;
+		}
 	}
 
 	// --------------------------------
@@ -131,11 +171,16 @@ public partial class PlayerController : CharacterBody3D
 
 	private void HandleDrinkInteraction(Drink drink)
 	{
+		if(heldDrink != null)
+		{
+			return;
+		}
 		drink.Reparent(theHand, keepGlobalTransform:false);
 		drink.Position = Vector3.Zero;
-		drink.Rotation = new Vector3(0, 180, 0);
+		drink.RotationDegrees = new Vector3(0, 180, 0);
 		heldDrink = drink;
 		AudioManager.Instance.PlaySFX_Global(AudioManager.SFXType.ItemInteract_One);
+		AudioManager.Instance.PlaySFX_Global(AudioManager.SFXType.ItemInteract_Two);
 		gameManager.ResetDrinkTimer();
 	}
 
@@ -146,13 +191,22 @@ public partial class PlayerController : CharacterBody3D
 		if(heldDrink.AssignedGuest == guest)
 		{
 			guest.TakeDrink(heldDrink);
-			guesses = 0;
+			guesses--;
 			gameManager.IncreaseScore();
 			heldDrink = null;
+
+			//play correct guess audio
+			audioManager.PlaySFX_Global(AudioManager.SFXType.Guess_Correct);
+			//int rand = 
+			audioManager.PlayNPCAudio_Global((AudioManager.NPCAudioType)random.Next(0,3));
 		}
 		else
 		{
 			++guesses;
+
+			//play wrong guess audio
+			audioManager.PlaySFX_Global(AudioManager.SFXType.Guess_Wrong);
+			audioManager.PlayNPCAudio_Global((AudioManager.NPCAudioType)random.Next(2,6));
 		}
 		gameManager.HandleGameOver();
 	}

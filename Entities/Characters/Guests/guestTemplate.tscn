@@ -2,29 +2,69 @@
 
 [ext_resource type="Script" uid="uid://hugld3vxb8ru" path="res://Entities/Characters/Guests/Guest.cs" id="1_d8eer"]
 [ext_resource type="PackedScene" uid="uid://di2nk0m7jh8jp" path="res://Entities/Objects/Mask/Mask.tscn" id="2_bld3r"]
+[ext_resource type="Texture2D" uid="uid://dlmb7sfjnd2g8" path="res://Assets/Art/Cloaks/Cloak-1-B.png" id="2_qdj1b"]
+[ext_resource type="Texture2D" uid="uid://dfdbm8x74revr" path="res://Assets/Art/Cloaks/Cloak-2-B.png" id="3_n2vp4"]
+[ext_resource type="Texture2D" uid="uid://drvtla3tfr1ia" path="res://Assets/Art/Cloaks/Cloak-1-F.png" id="4_24h1r"]
+[ext_resource type="Texture2D" uid="uid://d28hu10yw22ly" path="res://Assets/Art/Cloaks/Cloak-2-F.png" id="5_6ku7e"]
+[ext_resource type="Texture2D" uid="uid://co6arrwqqqgoj" path="res://Assets/Art/Cloaks/Cloak-1-Outline.png" id="6_24h1r"]
+[ext_resource type="Texture2D" uid="uid://b2lb1ja6ta7fj" path="res://Assets/Art/Cloaks/Cloak-2-Outline.png" id="7_6ku7e"]
+[ext_resource type="Shader" uid="uid://s2dq1v1h2ksb" path="res://Entities/Characters/Guests/cloak.gdshader" id="8_6ku7e"]
+[ext_resource type="Shader" uid="uid://bx4mshdyoqlwc" path="res://Entities/Characters/Guests/cloakOutline.gdshader" id="10_37vpk"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_msh3w"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_37vpk"]
+render_priority = 0
+shader = ExtResource("8_6ku7e")
+shader_parameter/front_texture = ExtResource("4_24h1r")
+shader_parameter/back_texture = ExtResource("2_qdj1b")
+
+[sub_resource type="BoxMesh" id="BoxMesh_6ku7e"]
+lightmap_size_hint = Vector2i(9, 31)
+material = SubResource("ShaderMaterial_37vpk")
+size = Vector3(1, 2, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h4fpy"]
+render_priority = 0
+shader = ExtResource("10_37vpk")
+shader_parameter/outline_texture = ExtResource("6_24h1r")
+shader_parameter/emission_color = Vector3(1, 1, 1)
+shader_parameter/emission_strength = 20.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_6ku7e"]
+material = SubResource("ShaderMaterial_h4fpy")
 size = Vector2(1, 2)
+center_offset = Vector3(0, 1, 0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d8eer"]
 size = Vector3(1, 2, 0.235)
 
-[node name="GuestTemplate" type="CharacterBody3D" unique_id=609082474 node_paths=PackedStringArray("hand", "mask")]
+[node name="GuestTemplate" type="CharacterBody3D" unique_id=609082474 node_paths=PackedStringArray("hand", "mask", "bodyMesh", "outlineMesh")]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_d8eer")
 hand = NodePath("Body/Hand")
 mask = NodePath("Body/Mask")
+bodyMesh = NodePath("Body")
+outlineMesh = NodePath("Body/Outline")
+cloaks = Dictionary[int, Array]({
+0: [ExtResource("2_qdj1b"), ExtResource("3_n2vp4")],
+1: [ExtResource("4_24h1r"), ExtResource("5_6ku7e")],
+2: [ExtResource("6_24h1r"), ExtResource("7_6ku7e")]
+})
 
 [node name="Body" type="MeshInstance3D" parent="." unique_id=1461473031]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("QuadMesh_msh3w")
+mesh = SubResource("BoxMesh_6ku7e")
 
 [node name="Mask" parent="Body" unique_id=984550983 instance=ExtResource("2_bld3r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, -0.035837203, 0.5514275, 0)
 
 [node name="Hand" type="Node3D" parent="Body" unique_id=1793626663]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2851732, 0, 0.3802661)
+
+[node name="Outline" type="MeshInstance3D" parent="Body" unique_id=568131701]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+visible = false
+mesh = SubResource("QuadMesh_6ku7e")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2121068206]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

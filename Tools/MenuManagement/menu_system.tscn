@@ -208,6 +208,7 @@ icon_alignment = 1
 script = ExtResource("2_4beqq")
 
 [node name="Settings" type="Control" parent="." unique_id=615102999 node_paths=PackedStringArray("audioSliderByType")]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -356,14 +357,16 @@ icon_alignment = 1
 script = ExtResource("2_4beqq")
 
 [node name="Win_Lose_Pause" type="Control" parent="." unique_id=1759944445 node_paths=PackedStringArray("resumeButton", "retryButton", "titleDataLabel", "scoreDataLabel", "moodDataLabel")]
-visible = false
 z_index = 10
-custom_minimum_size = Vector2(450, 0)
+custom_minimum_size = Vector2(500, 650)
 layout_mode = 3
-anchors_preset = 13
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_right = 225.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_4beqq")
