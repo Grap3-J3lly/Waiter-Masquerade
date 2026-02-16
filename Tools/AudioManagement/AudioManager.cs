@@ -1,6 +1,7 @@
 using Godot;
 using Godot.Collections;
 using System;
+using System.Runtime.CompilerServices;
 
 public partial class AudioManager : Node
 {
@@ -40,7 +41,10 @@ public partial class AudioManager : Node
         UI_Interact,
         TriggerDefaultPowerup,
         ItemInteract_One,
-        ItemInteract_Two
+        ItemInteract_Two,
+        Guess_Correct,
+        Guess_Wrong
+
     }
 
     [Export]
@@ -63,12 +67,34 @@ public partial class AudioManager : Node
     public Dictionary<PlayerAudioType, AudioStream> playerAudioLibrary = new Dictionary<PlayerAudioType, AudioStream>();
     #endregion
 
+    #region NPC
+    //NPC Group
+    [ExportGroup("NPC")]
+    [Export]
+    private AudioStreamPlayer npcAudioPlayer;
+    private AudioStreamPlaybackPolyphonic npcPlaybackController;
+
+    public enum NPCAudioType
+    {
+        Guess_Correct_Bark1 = 0,
+        Guess_Correct_Bark2 = 1,
+        Guess_Correct_Bark3 = 2,
+        Guess_Wrong_Bark1 = 3,
+        Guess_Wrong_Bark2 = 4,
+        Guess_Wrong_Bark3 = 5,
+    }
+
+    [Export]
+    public Dictionary<NPCAudioType, AudioStream> npcLibrary = new Dictionary<NPCAudioType, AudioStream>();
+    #endregion
+    
     #region Ambience
     // Ambience Group
     [ExportGroup("Ambience")]
     [Export]
     private AudioStreamPlayer ambienceAudioPlayer;
     private AudioStreamPlaybackPolyphonic ambiencePlaybackController;
+    private long playerAudioStreamID;
 
     public enum AmbienceType
     {
@@ -112,12 +138,16 @@ public partial class AudioManager : Node
 
     private void Setup()
     {
-        AssignDefaultVolumeLevel();
+        //AssignDefaultVolumeLevel();
 
         SetupPlaybackController(musicAudioPlayer, out musicPlaybackController);
         SetupPlaybackController(sfxAudioPlayer, out sfxPlaybackController);
         SetupPlaybackController(playerAudioPlayer, out playerPlaybackController);
         SetupPlaybackController(ambienceAudioPlayer, out ambiencePlaybackController);
+        SetupPlaybackController(npcAudioPlayer, out npcPlaybackController);
+
+        //play BG music
+        PlayMusic_Global(MusicType.Background);
     }
 
     private void SetupPlaybackController(AudioStreamPlayer player, out AudioStreamPlaybackPolyphonic playbackController)
@@ -169,7 +199,26 @@ public partial class AudioManager : Node
         
         if(playerAudioPlayer != null )
         {
-            playerPlaybackController.PlayStream(playerAudioLibrary[type]);
+            playerAudioStreamID = playerPlaybackController.PlayStream(playerAudioLibrary[type]);
+        }
+    }
+    public void StopPlayerAudio_Global(PlayerAudioType type)
+    {
+        GD.Print($"AudioManager.cs: Stopping Player Audio");
+        
+        if(playerAudioPlayer != null )
+        {
+            playerPlaybackController.StopStream(playerAudioStreamID);
+        }
+    }
+
+    public void PlayNPCAudio_Global(NPCAudioType type)
+    {
+        GD.Print($"AudioManager.cs: Playing NPC Audio: {type}");
+        
+        if(npcAudioPlayer != null )
+        {
+            npcPlaybackController.PlayStream(npcLibrary[type]);
         }
     }
 

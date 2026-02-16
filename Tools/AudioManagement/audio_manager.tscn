@@ -2,27 +2,61 @@
 
 [ext_resource type="Script" uid="uid://bcjlrdvkhu07" path="res://Tools/AudioManagement/AudioManager.cs" id="1_niwv0"]
 [ext_resource type="AudioStream" uid="uid://dpko7pb438qjk" path="res://Assets/Audio/SFX/UIInteractSound.ogg" id="2_eu42g"]
-[ext_resource type="AudioStream" uid="uid://birs1akc258nr" path="res://Assets/Audio/SFX/Player_DrinkPickup.wav" id="3_eu42g"]
+[ext_resource type="AudioStream" uid="uid://bhd0j15w2qrli" path="res://Assets/Audio/Music/Gregor Quendel - Handel, George Frideric - Flute Sonata in B minor, HWV 376.mp3" id="2_xtc6a"]
+[ext_resource type="AudioStream" uid="uid://dq646vmfc3ory" path="res://Assets/Audio/SFX/Player_OrderPickup.wav" id="3_eu42g"]
+[ext_resource type="AudioStream" uid="uid://cal88f8ys6etb" path="res://Assets/Audio/SFX/Player_Footsteps.wav" id="4_0hm6a"]
+[ext_resource type="AudioStream" uid="uid://birs1akc258nr" path="res://Assets/Audio/SFX/Player_DrinkPickup.wav" id="4_ec6fm"]
+[ext_resource type="AudioStream" uid="uid://dkjbhbbo7ko6m" path="res://Assets/Audio/SFX/Feedback_System_CorrectGuess.wav" id="5_a0b4b"]
+[ext_resource type="AudioStream" uid="uid://bd3btv80y2wfw" path="res://Assets/Audio/SFX/Feedback_System_WrongGuess.wav" id="6_nhpbo"]
+[ext_resource type="AudioStream" uid="uid://dwkrmod5dmt51" path="res://Assets/Audio/SFX/Feedback_NPC_Correct1.wav" id="8_b62do"]
+[ext_resource type="AudioStream" uid="uid://c4glfgr3jd024" path="res://Assets/Audio/SFX/Feedback_NPC_Correct2.wav" id="9_xtc6a"]
+[ext_resource type="AudioStream" uid="uid://dcwxyx2aif6av" path="res://Assets/Audio/SFX/Feedback_NPC_Correct3.wav" id="10_axg2c"]
+[ext_resource type="AudioStream" uid="uid://crfyf8q2akb73" path="res://Assets/Audio/SFX/Feedback_NPC_Wrong1.wav" id="11_o6lyb"]
+[ext_resource type="AudioStream" uid="uid://dacx70tmjiynk" path="res://Assets/Audio/SFX/Feedback_NPC_Wrong2.wav" id="12_n8mh4"]
+[ext_resource type="AudioStream" uid="uid://bg8gmybk0a8na" path="res://Assets/Audio/SFX/Feedback_NPC_Wrong3.wav" id="13_10cva"]
 
-[node name="AudioManager" type="Node" unique_id=749267359 node_paths=PackedStringArray("musicAudioPlayer", "sfxAudioPlayer", "playerAudioPlayer", "ambienceAudioPlayer")]
+[node name="AudioManager" type="Node" unique_id=749267359 node_paths=PackedStringArray("musicAudioPlayer", "sfxAudioPlayer", "playerAudioPlayer", "npcAudioPlayer", "ambienceAudioPlayer")]
 script = ExtResource("1_niwv0")
 musicAudioPlayer = NodePath("StreamPlayer-Music")
+musicLibrary = Dictionary[int, AudioStream]({
+0: ExtResource("2_xtc6a")
+})
 sfxAudioPlayer = NodePath("StreamPlayer-SFX")
 sfxLibrary = Dictionary[int, AudioStream]({
 3: ExtResource("2_eu42g"),
-5: ExtResource("3_eu42g")
+5: ExtResource("3_eu42g"),
+6: ExtResource("4_ec6fm"),
+7: ExtResource("5_a0b4b"),
+8: ExtResource("6_nhpbo")
 })
 playerAudioPlayer = NodePath("StreamPlayer-PlayerAudio")
+playerAudioLibrary = Dictionary[int, AudioStream]({
+0: ExtResource("4_0hm6a")
+})
+npcAudioPlayer = NodePath("StreamPlayer-NPC")
+npcLibrary = Dictionary[int, AudioStream]({
+0: ExtResource("8_b62do"),
+1: ExtResource("9_xtc6a"),
+2: ExtResource("10_axg2c"),
+3: ExtResource("11_o6lyb"),
+4: ExtResource("12_n8mh4"),
+5: ExtResource("13_10cva")
+})
 ambienceAudioPlayer = NodePath("StreamPlayer-Ambience")
 
 [node name="StreamPlayer-Music" type="AudioStreamPlayer" parent="." unique_id=557127835]
+volume_db = -10.0
 bus = &"MusicBus"
 
 [node name="StreamPlayer-SFX" type="AudioStreamPlayer" parent="." unique_id=1162855157]
+max_polyphony = 3
 bus = &"SFXBus"
 
 [node name="StreamPlayer-PlayerAudio" type="AudioStreamPlayer" parent="." unique_id=1441647318]
 bus = &"PlayerBus"
+
+[node name="StreamPlayer-NPC" type="AudioStreamPlayer" parent="." unique_id=1020688921]
+bus = &"NPC"
 
 [node name="StreamPlayer-Ambience" type="AudioStreamPlayer" parent="." unique_id=236937511]
 bus = &"AmbienceBus"
