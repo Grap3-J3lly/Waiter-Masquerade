@@ -3,5 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://bwhi1fp2ds46t" path="res://Assets/Art/Masks/Mask-C-Out.png" id="1_g4d4x"]
 
 [resource]
+render_priority = 5
 transparency = 1
 albedo_texture = ExtResource("1_g4d4x")
