@@ -138,7 +138,7 @@ public partial class AudioManager : Node
 
     private void Setup()
     {
-        //AssignDefaultVolumeLevel();
+        AssignDefaultVolumeLevel();
 
         SetupPlaybackController(musicAudioPlayer, out musicPlaybackController);
         SetupPlaybackController(sfxAudioPlayer, out sfxPlaybackController);
