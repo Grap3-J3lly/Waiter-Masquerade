@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dy2ed6cn6xgvc"
-path.s3tc="res://.godot/imported/Bar-Martini-LS.png-a6ce30585407d1763af730117fbd16e7.s3tc.ctex"
+uid="uid://drcpss2rxwkl5"
+path.s3tc="res://.godot/imported/Fabric062_1K-JPG_AmbientOcclusion.jpg-a401efb69588cdeeaabf8bcf29790508.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Art/Bar/Bar-Martini-LS.png"
-dest_files=["res://.godot/imported/Bar-Martini-LS.png-a6ce30585407d1763af730117fbd16e7.s3tc.ctex"]
+source_file="res://Assets/Materials/Fabric/F2/Fabric062_1K-JPG_AmbientOcclusion.jpg"
+dest_files=["res://.godot/imported/Fabric062_1K-JPG_AmbientOcclusion.jpg-a401efb69588cdeeaabf8bcf29790508.s3tc.ctex"]
 
 [params]
 

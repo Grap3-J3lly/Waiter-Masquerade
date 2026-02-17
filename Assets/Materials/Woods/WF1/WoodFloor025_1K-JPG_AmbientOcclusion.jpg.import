@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jxs5hn2bjel4"
-path.s3tc="res://.godot/imported/Marble014_1K-JPG_Roughness.jpg-aebd7e4efbc1e322a22ec0e928fbf101.s3tc.ctex"
+uid="uid://clenoqxahg3ui"
+path.s3tc="res://.godot/imported/WoodFloor025_1K-JPG_AmbientOcclusion.jpg-0551b29da239b615b40837bd9719d21f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Materials/Marble/Marble014_1K-JPG_Roughness.jpg"
-dest_files=["res://.godot/imported/Marble014_1K-JPG_Roughness.jpg-aebd7e4efbc1e322a22ec0e928fbf101.s3tc.ctex"]
+source_file="res://Assets/Materials/Woods/WF1/WoodFloor025_1K-JPG_AmbientOcclusion.jpg"
+dest_files=["res://.godot/imported/WoodFloor025_1K-JPG_AmbientOcclusion.jpg-0551b29da239b615b40837bd9719d21f.s3tc.ctex"]
 
 [params]
 

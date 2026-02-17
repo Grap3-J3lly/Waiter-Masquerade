@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dy2ed6cn6xgvc"
-path.s3tc="res://.godot/imported/Bar-Martini-LS.png-a6ce30585407d1763af730117fbd16e7.s3tc.ctex"
+uid="uid://br6q11035bohr"
+path.s3tc="res://.godot/imported/Props-Hook.png-8b75648b4ca99aa8acd48834668b19e8.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Art/Bar/Bar-Martini-LS.png"
-dest_files=["res://.godot/imported/Bar-Martini-LS.png-a6ce30585407d1763af730117fbd16e7.s3tc.ctex"]
+source_file="res://Assets/Art/Lights/Props-Hook.png"
+dest_files=["res://.godot/imported/Props-Hook.png-8b75648b4ca99aa8acd48834668b19e8.s3tc.ctex"]
 
 [params]
 

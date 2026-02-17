@@ -1,0 +1,16 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://ce0ubkr7ju1pf"]
+
+[ext_resource type="Texture2D" uid="uid://hx5nnx4m6x5c" path="res://Assets/Materials/Marble/M2/Marble013_1K-JPG_Color.jpg" id="1_cbqae"]
+[ext_resource type="Texture2D" uid="uid://chr7o8v721a1" path="res://Assets/Materials/Marble/M2/Marble013_1K-JPG_Displacement.jpg" id="2_2nsjp"]
+[ext_resource type="Texture2D" uid="uid://tm1368imf7cx" path="res://Assets/Materials/Marble/M2/Marble013_1K-JPG_NormalGL.jpg" id="3_kn735"]
+[ext_resource type="Texture2D" uid="uid://7omdi28st47v" path="res://Assets/Materials/Marble/M2/Marble013_1K-JPG_Roughness.jpg" id="4_35236"]
+
+[resource]
+albedo_texture = ExtResource("1_cbqae")
+roughness_texture = ExtResource("4_35236")
+normal_enabled = true
+normal_texture = ExtResource("3_kn735")
+heightmap_enabled = true
+heightmap_scale = 2.0
+heightmap_texture = ExtResource("2_2nsjp")
+uv1_scale = Vector3(2, 0.5, 1)

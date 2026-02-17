@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dy2ed6cn6xgvc"
-path.s3tc="res://.godot/imported/Bar-Martini-LS.png-a6ce30585407d1763af730117fbd16e7.s3tc.ctex"
+uid="uid://hx5nnx4m6x5c"
+path.s3tc="res://.godot/imported/Marble013_1K-JPG_Color.jpg-71f4277654194abdb10e44f2383edbab.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Art/Bar/Bar-Martini-LS.png"
-dest_files=["res://.godot/imported/Bar-Martini-LS.png-a6ce30585407d1763af730117fbd16e7.s3tc.ctex"]
+source_file="res://Assets/Materials/Marble/M2/Marble013_1K-JPG_Color.jpg"
+dest_files=["res://.godot/imported/Marble013_1K-JPG_Color.jpg-71f4277654194abdb10e44f2383edbab.s3tc.ctex"]
 
 [params]
 

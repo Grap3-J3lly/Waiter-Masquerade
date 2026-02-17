@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dy2ed6cn6xgvc"
-path.s3tc="res://.godot/imported/Bar-Martini-LS.png-a6ce30585407d1763af730117fbd16e7.s3tc.ctex"
+uid="uid://mcgoch4qi4kh"
+path.s3tc="res://.godot/imported/Leather034C_1K-JPG_Displacement.jpg-f8eb194af32980f20107736d40048323.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Art/Bar/Bar-Martini-LS.png"
-dest_files=["res://.godot/imported/Bar-Martini-LS.png-a6ce30585407d1763af730117fbd16e7.s3tc.ctex"]
+source_file="res://Assets/Materials/Leather/L1/Leather034C_1K-JPG_Displacement.jpg"
+dest_files=["res://.godot/imported/Leather034C_1K-JPG_Displacement.jpg-f8eb194af32980f20107736d40048323.s3tc.ctex"]
 
 [params]
 

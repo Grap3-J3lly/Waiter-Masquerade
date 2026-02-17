@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dy2ed6cn6xgvc"
-path.s3tc="res://.godot/imported/Bar-Martini-LS.png-a6ce30585407d1763af730117fbd16e7.s3tc.ctex"
+uid="uid://df7j5igjgeyre"
+path.s3tc="res://.godot/imported/Props-Candle-Small.png-fa1915b2894a27defacd9f93673d9d9b.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Art/Bar/Bar-Martini-LS.png"
-dest_files=["res://.godot/imported/Bar-Martini-LS.png-a6ce30585407d1763af730117fbd16e7.s3tc.ctex"]
+source_file="res://Assets/Art/Lights/Props-Candle-Small.png"
+dest_files=["res://.godot/imported/Props-Candle-Small.png-fa1915b2894a27defacd9f93673d9d9b.s3tc.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3syfi2fo07es"
-path.s3tc="res://.godot/imported/Marble014_1K-JPG_Color.jpg-63ecaf23036fcf12d53f7a63ae98cc4c.s3tc.ctex"
+uid="uid://b8tn72sephifn"
+path.s3tc="res://.godot/imported/Props-Candle-Full.png-6014255f85861915d5d90b620e593019.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Materials/Marble/Marble014_1K-JPG_Color.jpg"
-dest_files=["res://.godot/imported/Marble014_1K-JPG_Color.jpg-63ecaf23036fcf12d53f7a63ae98cc4c.s3tc.ctex"]
+source_file="res://Assets/Art/Lights/Props-Candle-Full.png"
+dest_files=["res://.godot/imported/Props-Candle-Full.png-6014255f85861915d5d90b620e593019.s3tc.ctex"]
 
 [params]
 
