@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://4q07cn8g3hm2"]
+
+[ext_resource type="Texture2D" uid="uid://dov23me2jh1cm" path="res://Assets/Materials/Tiles/T1/Tiles081_1K-JPG_Color.jpg" id="1_yiqn4"]
+[ext_resource type="Texture2D" uid="uid://dcn3ma5crmhiv" path="res://Assets/Materials/Tiles/T1/Tiles081_1K-JPG_Roughness.jpg" id="2_q5iwt"]
+[ext_resource type="Texture2D" uid="uid://b747wrdm84vml" path="res://Assets/Materials/Tiles/T1/Tiles081_1K-JPG_NormalGL.jpg" id="3_kl1c7"]
+
+[resource]
+albedo_texture = ExtResource("1_yiqn4")
+roughness_texture = ExtResource("2_q5iwt")
+normal_enabled = true
+normal_texture = ExtResource("3_kl1c7")
+heightmap_enabled = true
+heightmap_texture = ExtResource("2_q5iwt")
+uv1_scale = Vector3(5, 10, 5)

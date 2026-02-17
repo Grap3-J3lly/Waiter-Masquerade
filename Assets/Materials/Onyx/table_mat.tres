@@ -1,0 +1,16 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dm75dgjm40w8x"]
+
+[ext_resource type="Texture2D" uid="uid://c06d4ho87yjsr" path="res://Assets/Materials/Onyx/Onyx013_1K-JPG_Color.jpg" id="1_n7sec"]
+[ext_resource type="Texture2D" uid="uid://dme53m6kdpome" path="res://Assets/Materials/Onyx/Onyx013_1K-JPG_Displacement.jpg" id="2_u4rch"]
+[ext_resource type="Texture2D" uid="uid://br0b16foadp6j" path="res://Assets/Materials/Onyx/Onyx013_1K-JPG_NormalGL.jpg" id="3_pvo81"]
+[ext_resource type="Texture2D" uid="uid://dfnurrwofffwq" path="res://Assets/Materials/Onyx/Onyx013_1K-JPG_Roughness.jpg" id="4_oh65l"]
+
+[resource]
+albedo_texture = ExtResource("1_n7sec")
+metallic = 0.8
+roughness_texture = ExtResource("4_oh65l")
+normal_enabled = true
+normal_texture = ExtResource("3_pvo81")
+heightmap_enabled = true
+heightmap_texture = ExtResource("2_u4rch")
+uv1_scale = Vector3(2, 2, 2)
