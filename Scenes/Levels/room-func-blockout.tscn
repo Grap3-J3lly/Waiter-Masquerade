@@ -28,9 +28,9 @@
 [ext_resource type="Texture2D" uid="uid://co4je3eepkkuu" path="res://Assets/Art/Bar/Bar-Martini-SS.png" id="15_h47gr"]
 [ext_resource type="Material" uid="uid://bjt7dbelb0le3" path="res://Assets/Materials/Leather/L1/leather_padded_dark_mat.tres" id="16_3btmy"]
 [ext_resource type="Texture2D" uid="uid://b8tn72sephifn" path="res://Assets/Art/Lights/Props-Candle-Full.png" id="28_0ico0"]
-[ext_resource type="Texture2D" uid="uid://i4sn87qfuv" path="res://Assets/Art/UI/UI-Table-Placard.png" id="29_q6em2"]
 [ext_resource type="Texture2D" uid="uid://df7j5igjgeyre" path="res://Assets/Art/Lights/Props-Candle-Small.png" id="30_cmlf4"]
 [ext_resource type="Texture2D" uid="uid://sw4364srb2cx" path="res://Assets/Art/Lights/Props-Candle-Half.png" id="31_mu7lp"]
+[ext_resource type="PackedScene" uid="uid://diuxkay4swl3b" path="res://Entities/Objects/Placard/placard.tscn" id="32_q6em2"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_fcrp2"]
 size = Vector2(15, 30)
@@ -342,17 +342,6 @@ alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
 cull_mode = 2
 albedo_texture = ExtResource("28_0ico0")
-billboard_mode = 2
-
-[sub_resource type="QuadMesh" id="QuadMesh_hr7x7"]
-size = Vector2(0.25, 0.25)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mpllr"]
-transparency = 2
-alpha_scissor_threshold = 0.5
-alpha_antialiasing_mode = 0
-cull_mode = 2
-albedo_texture = ExtResource("29_q6em2")
 billboard_mode = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s4dwa"]
@@ -1890,10 +1879,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1874752, 0)
 mesh = SubResource("QuadMesh_8ts8o")
 surface_material_override/0 = SubResource("StandardMaterial3D_p5w0j")
 
-[node name="Placard" type="MeshInstance3D" parent="Tables/Table-1" unique_id=852031399]
+[node name="Placard" parent="Tables/Table-1" unique_id=1384526189 instance=ExtResource("32_q6em2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.244, 1.11, 0.217)
-mesh = SubResource("QuadMesh_hr7x7")
-surface_material_override/0 = SubResource("StandardMaterial3D_mpllr")
 
 [node name="Table-2" type="StaticBody3D" parent="Tables" unique_id=237032871]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2397032, 0, -5.528447)
@@ -1917,10 +1904,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1874752, 0)
 mesh = SubResource("QuadMesh_8ts8o")
 surface_material_override/0 = SubResource("StandardMaterial3D_s4dwa")
 
-[node name="Placard" type="MeshInstance3D" parent="Tables/Table-2" unique_id=2093704557]
+[node name="Placard" parent="Tables/Table-2" unique_id=1901354775 instance=ExtResource("32_q6em2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.258, 1.11, 0.217)
-mesh = SubResource("QuadMesh_hr7x7")
-surface_material_override/0 = SubResource("StandardMaterial3D_mpllr")
+tableNum = 2
 
 [node name="Table-3" type="StaticBody3D" parent="Tables" unique_id=908717518]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.479461, 0, -1.5079584)
@@ -1944,10 +1930,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1874752, 0)
 mesh = SubResource("QuadMesh_8ts8o")
 surface_material_override/0 = SubResource("StandardMaterial3D_p5w0j")
 
-[node name="Placard" type="MeshInstance3D" parent="Tables/Table-3" unique_id=740814298]
+[node name="Placard" parent="Tables/Table-3" unique_id=672632862 instance=ExtResource("32_q6em2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.326, 1.11, 0.009)
-mesh = SubResource("QuadMesh_hr7x7")
-surface_material_override/0 = SubResource("StandardMaterial3D_mpllr")
+tableNum = 3
 
 [node name="Table-4" type="StaticBody3D" parent="Tables" unique_id=453882022]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.892289, 0, 1.9650652)
@@ -1971,10 +1956,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1874752, 0)
 mesh = SubResource("QuadMesh_8ts8o")
 surface_material_override/0 = SubResource("StandardMaterial3D_vxtme")
 
-[node name="Placard" type="MeshInstance3D" parent="Tables/Table-4" unique_id=1183094001]
+[node name="Placard" parent="Tables/Table-4" unique_id=2104929021 instance=ExtResource("32_q6em2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.29104137, 1.11, 0.24955845)
-mesh = SubResource("QuadMesh_hr7x7")
-surface_material_override/0 = SubResource("StandardMaterial3D_mpllr")
+tableNum = 4
 
 [node name="Table-5" type="StaticBody3D" parent="Tables" unique_id=696445275]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5718644, -4.7683716e-07, 3.0088885)
@@ -1998,10 +1982,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1874752, 0)
 mesh = SubResource("QuadMesh_8ts8o")
 surface_material_override/0 = SubResource("StandardMaterial3D_s4dwa")
 
-[node name="Placard" type="MeshInstance3D" parent="Tables/Table-5" unique_id=1005071872]
+[node name="Placard" parent="Tables/Table-5" unique_id=1490785221 instance=ExtResource("32_q6em2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16043377, 1.11, 0.29977584)
-mesh = SubResource("QuadMesh_hr7x7")
-surface_material_override/0 = SubResource("StandardMaterial3D_mpllr")
+tableNum = 5
 
 [node name="Table-6" type="StaticBody3D" parent="Tables" unique_id=860642200]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.428928, 0, 7.500031)
@@ -2026,10 +2009,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1874752, 0)
 mesh = SubResource("QuadMesh_8ts8o")
 surface_material_override/0 = SubResource("StandardMaterial3D_p5w0j")
 
-[node name="Placard" type="MeshInstance3D" parent="Tables/Table-6" unique_id=29245763]
+[node name="Placard" parent="Tables/Table-6" unique_id=1688747219 instance=ExtResource("32_q6em2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.280581, 1.11, -0.17119837)
-mesh = SubResource("QuadMesh_hr7x7")
-surface_material_override/0 = SubResource("StandardMaterial3D_mpllr")
+tableNum = 6
 
 [node name="Table-7" type="StaticBody3D" parent="Tables" unique_id=937746223]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.51390886, 0, 9.48436)
@@ -2053,10 +2035,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1874752, 0)
 mesh = SubResource("QuadMesh_8ts8o")
 surface_material_override/0 = SubResource("StandardMaterial3D_vxtme")
 
-[node name="Placard" type="MeshInstance3D" parent="Tables/Table-7" unique_id=797587803]
+[node name="Placard" parent="Tables/Table-7" unique_id=505644726 instance=ExtResource("32_q6em2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07122558, 1.11, -0.29261017)
-mesh = SubResource("QuadMesh_hr7x7")
-surface_material_override/0 = SubResource("StandardMaterial3D_mpllr")
+tableNum = 7
 
 [node name="Table-8" type="StaticBody3D" parent="Tables" unique_id=1863892953]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.144435, 2.3841858e-07, 13.026168)
@@ -2081,10 +2062,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1874752, 0)
 mesh = SubResource("QuadMesh_8ts8o")
 surface_material_override/0 = SubResource("StandardMaterial3D_s4dwa")
 
-[node name="Placard" type="MeshInstance3D" parent="Tables/Table-8" unique_id=293533736]
+[node name="Placard" parent="Tables/Table-8" unique_id=1252369138 instance=ExtResource("32_q6em2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33275032, 1.11, -0.13609028)
-mesh = SubResource("QuadMesh_hr7x7")
-surface_material_override/0 = SubResource("StandardMaterial3D_mpllr")
+tableNum = 8
 
 [node name="Table-9" type="StaticBody3D" parent="Tables" unique_id=389467112]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.487578, 0, -12.486256)
@@ -2108,10 +2088,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1874752, 0)
 mesh = SubResource("QuadMesh_8ts8o")
 surface_material_override/0 = SubResource("StandardMaterial3D_vxtme")
 
-[node name="Placard" type="MeshInstance3D" parent="Tables/Table-9" unique_id=1590713299]
+[node name="Placard" parent="Tables/Table-9" unique_id=73670257 instance=ExtResource("32_q6em2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.087219715, 1.11, 0.33691978)
-mesh = SubResource("QuadMesh_hr7x7")
-surface_material_override/0 = SubResource("StandardMaterial3D_mpllr")
+tableNum = 9
 
 [node name="Chandeluers" type="Node3D" parent="." unique_id=962581974]
 

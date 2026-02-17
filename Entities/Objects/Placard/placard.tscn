@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://diuxkay4swl3b"]
+
+[ext_resource type="Script" uid="uid://c766lgutbmy3i" path="res://Entities/Objects/Placard/Placard.cs" id="1_cxqt0"]
+[ext_resource type="Texture2D" uid="uid://i4sn87qfuv" path="res://Assets/Art/UI/UI-Table-Placard.png" id="1_i5nq6"]
+[ext_resource type="FontFile" uid="uid://bafgsoup4wn86" path="res://Assets/Fonts/Kings/Kings-Regular.ttf" id="3_tlcjb"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_i5nq6"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i5nq6"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("ViewportTexture_i5nq6")
+billboard_mode = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_hr7x7"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_i5nq6")
+size = Vector2(0.25, 0.25)
+
+[node name="Placard" type="MeshInstance3D" unique_id=1384526189 node_paths=PackedStringArray("tableNumLabel")]
+mesh = SubResource("QuadMesh_hr7x7")
+script = ExtResource("1_cxqt0")
+tableNumLabel = NodePath("SubViewport/CanvasLayer/Control/RichTextLabel")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=261609749]
+transparent_bg = true
+size = Vector2i(1024, 1024)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="SubViewport" unique_id=1848908348]
+
+[node name="Control" type="Control" parent="SubViewport/CanvasLayer" unique_id=1567107492]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="SubViewport/CanvasLayer/Control" unique_id=1586708067]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_i5nq6")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewport/CanvasLayer/Control" unique_id=909896790]
+custom_minimum_size = Vector2(650, 700)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -402.0
+offset_top = -362.0
+offset_right = 248.0
+offset_bottom = 409.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_tlcjb")
+theme_override_font_sizes/normal_font_size = 550
+text = "1"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
