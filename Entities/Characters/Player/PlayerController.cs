@@ -10,11 +10,13 @@ public partial class PlayerController : CharacterBody3D
 	private AudioManager audioManager;
 
 	[Export]
-	public float speed = 5.0f;
+	private float speed = 5.0f;
 	[Export]
 	private Camera3D mainCam;
 	[Export]
-	public float MouseSensitivity = .002f;
+	private Vector2 mouseSensitivity = new Vector2(.002f, .2f);
+	[Export]
+	private Vector2 mouseClampAngles = new Vector2(-45.0f, 45.0f);
 	[Export]
 	private RayCast3D raycast;
 	[Export]
@@ -73,8 +75,14 @@ public partial class PlayerController : CharacterBody3D
 
 		if(@event is InputEventMouseMotion mouseMotion && !gameManager.GameStopped && !gameManager.GamePaused)
 		{
-			RotateY(-mouseMotion.Relative.X * MouseSensitivity);
-			mainCam.RotateX(-mouseMotion.Relative.Y * MouseSensitivity);
+			// mainCam.RotateX(-mouseMotion.Relative.Y * MouseSensitivity);
+			
+			float pitchChange = -mouseMotion.Relative.Y * mouseSensitivity.Y;
+			Vector3 currentRotation = mainCam.RotationDegrees;
+			currentRotation.X += pitchChange;
+			currentRotation.X = Mathf.Clamp(currentRotation.X, mouseClampAngles.X, mouseClampAngles.Y);
+			mainCam.RotationDegrees = currentRotation;
+			RotateY(-mouseMotion.Relative.X * mouseSensitivity.X);
 		}
 	}
 
@@ -191,7 +199,11 @@ public partial class PlayerController : CharacterBody3D
 		if(heldDrink.AssignedGuest == guest)
 		{
 			guest.TakeDrink(heldDrink);
-			guesses--;
+
+			if(guesses > 0)
+			{
+				--guesses;
+			}
 			gameManager.IncreaseScore();
 			heldDrink = null;
 

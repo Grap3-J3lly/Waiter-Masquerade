@@ -27,6 +27,7 @@ guests = [NodePath("../GuestTemplate"), NodePath("../GuestTemplate2"), NodePath(
 
 [node name="Player" parent="." unique_id=1471031441 instance=ExtResource("1_7sx2d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mouseSensitivity = Vector2(0.002, 0.15)
 
 [node name="RoomFuncBlockout" parent="." unique_id=593545700 instance=ExtResource("2_robrs")]
 
